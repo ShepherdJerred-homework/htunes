@@ -1,17 +1,15 @@
-# htunes
+# [htunes](https://github.com/ShepherdJerred/htunes)
+A Windows application for playing and organizing music
 
-URL to the repo on GitHub: https://github.com/ShepherdJerred/htunes
+### Known bugs
+* None
 
-Brief summary of what the program does:
+### Extra credit
+* None
 
-List of any known bugs that still remain:
+### Contributions
+Levi Mason (50%)
+* Nothing
 
-List of any additional requirements that were implemented:
- 
-List what each teammate contributed (e.g., code to transform images, populate the list view, etc.)  
-	Levi Mason:
-	Jerred Shepherd:
-
-The percentage of work performed by each teammate
-	 Levi Mason: 50%
-	Jerred Shepherd: 50%
+Jerred Shepherd (50%)
+* Nothing
