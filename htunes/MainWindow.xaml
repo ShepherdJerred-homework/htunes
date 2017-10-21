@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="hTunes" Height="350" Width="525">
     <Grid>
+<<<<<<< HEAD
         <ListBox x:Name="songList" HorizontalAlignment="Left" Height="245" Margin="10,44,0,0" VerticalAlignment="Top" Width="318"/>
         <ToolBarPanel>
             <ToolBar Band="1" BandIndex="1" HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="518">
@@ -23,6 +24,18 @@
             </ToolBar>
         </ToolBarPanel>
 
+=======
+        <DataGrid x:Name="songList" HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" VerticalAlignment="Top"
+                 Width="498" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
+                <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
+                <DataGridTextColumn Binding="{Binding Album}" Header="Album" />
+                <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+>>>>>>> e3f19e7610b84b0f68145dbe8233fc11d6b4ddea
 
     </Grid>
 </Window>

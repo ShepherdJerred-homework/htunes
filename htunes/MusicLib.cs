@@ -30,9 +30,25 @@ namespace hTunes {
             }
         }
 
-        public DataTable Songs {
+        public List<Song> Songs {
             get {
-                return musicDataSet.Tables["song"];
+                List<Song> songs = new List<Song>();
+
+                DataTable musicDataTable = musicDataSet.Tables["song"];
+
+                foreach (DataRow row in musicDataTable.Rows) {
+                    Song song = new Song();
+                    song.Id = (int) row["id"];
+                    song.Title = (String) row["title"];
+                    song.Artist = (String) row["artist"];
+                    song.Album = (String) row["album"];
+                    song.Genre = (String) row["genre"];
+                    song.Length = (String) row["length"];
+                    song.Filename = (String) row["filename"];
+                    songs.Add(song);
+                }
+
+                return songs;
             }
         }
 
