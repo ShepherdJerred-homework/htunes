@@ -7,8 +7,6 @@
         mc:Ignorable="d"
         Title="hTunes" Height="350" Width="525">
     <Grid>
-<<<<<<< HEAD
-        <ListBox x:Name="songList" HorizontalAlignment="Left" Height="245" Margin="10,44,0,0" VerticalAlignment="Top" Width="318"/>
         <ToolBarPanel>
             <ToolBar Band="1" BandIndex="1" HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="518">
                 <Button>
@@ -24,9 +22,8 @@
             </ToolBar>
         </ToolBarPanel>
 
-=======
-        <DataGrid x:Name="songList" HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" VerticalAlignment="Top"
-                 Width="498" AutoGenerateColumns="False">
+        <DataGrid x:Name="songList" Height="Auto" Margin="10,50,10,100"
+                 Width="Auto" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
                 <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
@@ -35,7 +32,11 @@
             </DataGrid.Columns>
 
         </DataGrid>
->>>>>>> e3f19e7610b84b0f68145dbe8233fc11d6b4ddea
+
+        <Button Content="Play/Pause" HorizontalAlignment="Left" Width="75" Height="25" Margin="10,270,0,25.8"/>
+        <Button Content="Next" HorizontalAlignment="Left" Width="75" Height="25" Margin="170,270,0,25.8" />
+        <Button Content="Previous" HorizontalAlignment="Left" Width="75" Height="25" Margin="90,270,0,25.8" />
+        <Button Content="Stop" HorizontalAlignment="Left" Width="75" Height="25" Margin="250,270,0,25.8" />
 
     </Grid>
 </Window>
