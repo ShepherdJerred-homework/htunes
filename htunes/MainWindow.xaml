@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:htunes"
         mc:Ignorable="d"
-        Title="hTunes" Height="350" Width="525">
+        Title="hTunes" Height="500" Width="800">
     <Grid>
         <ToolBarPanel>
             <ToolBar Band="1" BandIndex="1" HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="518">
@@ -21,22 +21,23 @@
                 <!--<TextBox HorizontalAlignment="Right" Width="150"/>-->
             </ToolBar>
         </ToolBarPanel>
-
-        <DataGrid x:Name="songList" Height="Auto" Margin="10,50,10,100"
-                 Width="Auto" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-                <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
-                <DataGridTextColumn Binding="{Binding Album}" Header="Album" />
-                <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" />
-            </DataGrid.Columns>
-
-        </DataGrid>
-
-        <Button Content="Play/Pause" HorizontalAlignment="Left" Width="75" Height="25" Margin="10,270,0,25.8"/>
-        <Button Content="Next" HorizontalAlignment="Left" Width="75" Height="25" Margin="170,270,0,25.8" />
-        <Button Content="Previous" HorizontalAlignment="Left" Width="75" Height="25" Margin="90,270,0,25.8" />
-        <Button Content="Stop" HorizontalAlignment="Left" Width="75" Height="25" Margin="250,270,0,25.8" />
-
+        <DockPanel Width="Auto" Height="Auto" LastChildFill="False">
+            <ListBox Height="Auto" Width="100" Margin="10,50,10,10" DockPanel.Dock="Left" />
+            <DataGrid x:Name="songList" Height="Auto" Margin="10,50,10,100"
+                      Width="Auto" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
+                    <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
+                    <DataGridTextColumn Binding="{Binding Album}" Header="Album" />
+                    <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Height="Auto" Width="Auto" Margin="10" DockPanel.Dock="Bottom" Orientation="Horizontal">
+                <Button Content="Previous" Width="75" Height="25" Margin="10" />
+                <Button Content="Play/Pause" Width="75" Height="25" Margin="10" />
+                <Button Content="Next" Width="75" Height="25" Margin="10" />
+                <Button Content="Stop" Width="75" Height="25" Margin="10" />
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>
