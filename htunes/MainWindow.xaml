@@ -36,11 +36,18 @@
                     <DataGrid.RowDetailsTemplate>
                         <DataTemplate>
                             <Border>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding Title}" />
-                                    <TextBlock Text="{Binding Artist}" />
-                                    <TextBlock Text="{Binding Length}" />
-                                    <TextBlock Text="More Info" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="64" Height="64"></Image>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Title, StringFormat=Title: {0}}" />
+                                        <TextBlock Text="{Binding Artist, StringFormat=Artist: {0}}" />
+                                        <TextBlock Text="{Binding Length, StringFormat=Length: {0}}" />
+                                        <TextBlock>
+                                            <Hyperlink NavigateUri="http://www.google.com">
+                                                More info on Last.FM
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
