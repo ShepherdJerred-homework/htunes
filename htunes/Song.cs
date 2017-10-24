@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace htunes
-{
-    public class Song
-    {
+namespace htunes {
+    public class Song {
         public int Id { set; get; }
         public string Title { set; get; }
         public string Artist { set; get; }
@@ -17,8 +15,7 @@ namespace htunes
         public string Filename { set; get; }
 
         // Two songs are equal if all their properties are equal
-        public override bool Equals(object obj)
-        {
+        public override bool Equals(object obj) {
             Song s = obj as Song;
             if (s == null)
                 return false;
@@ -28,8 +25,7 @@ namespace htunes
                    s.Filename == Filename;
         }
 
-        public override int GetHashCode()
-        {
+        public override int GetHashCode() {
             return base.GetHashCode();
         }
     }

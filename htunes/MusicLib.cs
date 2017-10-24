@@ -19,15 +19,11 @@ namespace hTunes {
         /// The list of all song IDs in sorted order
         /// </summary>
         public string[] SongIds {
-            get {
-                return GetList("song", "id");
-            }
+            get { return GetList("song", "id"); }
         }
 
         public string[] Playlists {
-            get {
-                return GetList("playlist", "name");
-            }
+            get { return GetList("playlist", "name"); }
         }
 
         public DataTable Songs {
@@ -36,8 +32,8 @@ namespace hTunes {
 
         private string[] GetList(string tableName, string colName) {
             var items = from row in musicDataSet.Tables[tableName].AsEnumerable()
-                        orderby row[colName]
-                        select row[colName].ToString();
+                orderby row[colName]
+                select row[colName].ToString();
             return items.ToArray();
         }
 
@@ -180,7 +176,7 @@ namespace hTunes {
 
             foreach (DataRow row in rows)
                 RemoveSongFromPlaylist(Convert.ToInt32(row["position"]),
-                        Convert.ToInt32(row["song_id"]), row["playlist_name"].ToString());
+                    Convert.ToInt32(row["song_id"]), row["playlist_name"].ToString());
 
             return true;
         }
@@ -227,7 +223,8 @@ namespace hTunes {
 
             try {
                 table.Rows.Add(row);
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 // Probably a playlist with the same name was being added
                 return false;
             }
@@ -261,7 +258,7 @@ namespace hTunes {
 
             table = musicDataSet.Tables["playlist_song"];
             foreach (DataRow r in table.Rows)
-                if ((string)r["playlist_name"] == oldPlaylistName)
+                if ((string) r["playlist_name"] == oldPlaylistName)
                     r["playlist_name"] = newPlaylistName;
 
             return true;
@@ -297,7 +294,7 @@ namespace hTunes {
             List<DataRow> rows = new List<DataRow>();
             table = musicDataSet.Tables["playlist_song"];
             foreach (DataRow r in table.Rows)
-                if ((string)r["playlist_name"] == playlist)
+                if ((string) r["playlist_name"] == playlist)
                     rows.Add(r);
 
             foreach (DataRow r in rows)
@@ -335,8 +332,8 @@ namespace hTunes {
             Console.WriteLine("playlist=" + playlist);
             DataTable table = musicDataSet.Tables["playlist_song"];
             var positions = from row in table.AsEnumerable()
-                            where (string)row["playlist_name"] == playlist
-                            select row["position"];
+                where (string) row["playlist_name"] == playlist
+                select row["position"];
             return Convert.ToInt32(positions.Max());
         }
 
@@ -348,7 +345,7 @@ namespace hTunes {
         /// <param name="playlist"></param>
         public void RemoveSongFromPlaylist(int position, int songId, string playlist) {
             Console.WriteLine("RemoveSongFromPlaylist: id=" + songId + ", pos=" + position +
-                ", playlist=" + playlist);
+                              ", playlist=" + playlist);
 
             // Search the primary key for this playlist and delete it from the playlist table
             DataTable table = musicDataSet.Tables["playlist_song"];
@@ -365,10 +362,9 @@ namespace hTunes {
             table = musicDataSet.Tables["playlist_song"];
             foreach (DataRow r in table.Rows) {
                 int pos = Convert.ToInt32(r["position"]);
-                if ((string)r["playlist_name"] == playlist && pos > position)
+                if ((string) r["playlist_name"] == playlist && pos > position)
                     r["position"] = pos - 1;
             }
-
         }
 
         /// <summary>
@@ -389,18 +385,18 @@ namespace hTunes {
 
             // Join on the song ID to create a single table
             var songs = from r1 in musicDataSet.Tables["playlist_song"].AsEnumerable()
-                        join r2 in musicDataSet.Tables["song"].AsEnumerable()
-                             on r1["song_id"] equals r2["id"]
-                        where (string)r1["playlist_name"] == playlist
-                        orderby r1["position"]
-                        select new {
-                            Id = r2["id"],
-                            Position = r1["position"],
-                            Title = r2["title"],
-                            Artist = r2["artist"],
-                            Album = r2["album"],
-                            Genre = r2["genre"]
-                        };
+                join r2 in musicDataSet.Tables["song"].AsEnumerable()
+                    on r1["song_id"] equals r2["id"]
+                where (string) r1["playlist_name"] == playlist
+                orderby r1["position"]
+                select new {
+                    Id = r2["id"],
+                    Position = r1["position"],
+                    Title = r2["title"],
+                    Artist = r2["artist"],
+                    Album = r2["album"],
+                    Genre = r2["genre"]
+                };
 
             Console.WriteLine("Songs for playlist " + playlist + ":");
             foreach (var s in songs) {
