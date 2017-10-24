@@ -8,7 +8,7 @@
         Title="hTunes" Height="500" Width="800">
     <Grid>
         <ToolBarPanel>
-            <ToolBar Band="1" BandIndex="1" HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="518">
+            <ToolBar Band="1" BandIndex="1" Height="44" VerticalAlignment="Top" Width="Auto">
                 <Button>
                     <Image Source="music_folder.ico" />
                 </Button>
@@ -21,22 +21,45 @@
                 <!--<TextBox HorizontalAlignment="Right" Width="150"/>-->
             </ToolBar>
         </ToolBarPanel>
-        <DockPanel Width="Auto" Height="Auto" LastChildFill="False">
+        <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
             <ListBox Height="Auto" Width="100" Margin="10,50,10,10" DockPanel.Dock="Left" />
-            <DataGrid x:Name="songList" Height="Auto" Margin="10,50,10,100"
-                      Width="Auto" AutoGenerateColumns="False" DockPanel.Dock="Top">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-                    <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
-                    <DataGridTextColumn Binding="{Binding Album}" Header="Album" />
-                    <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Height="Auto" Width="Auto" Margin="10" DockPanel.Dock="Bottom" Orientation="Horizontal">
-                <Button Content="Previous" Width="75" Height="25" Margin="10" />
-                <Button Content="Play/Pause" Width="75" Height="25" Margin="10" />
-                <Button Content="Next" Width="75" Height="25" Margin="10" />
-                <Button Content="Stop" Width="75" Height="25" Margin="10" />
+            <StackPanel Height="Auto" Width="Auto" Margin="10,50,10,10">
+                <DataGrid x:Name="songList" Height="Auto"
+                          Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
+                        <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
+                        <DataGridTextColumn Binding="{Binding Album}" Header="Album" />
+                        <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" />
+                    </DataGrid.Columns>
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Title}" />
+                                    <TextBlock Text="{Binding Artist}" />
+                                    <TextBlock Text="{Binding Length}" />
+                                    <TextBlock Text="More Info" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="Play" />
+                            <Separator />
+                            <MenuItem Command="Delete" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <StackPanel Height="Auto" Width="Auto" Margin="0" Orientation="Horizontal">
+                    <Button Content="Previous" Width="75" Height="25" Margin="10" />
+                    <Button Content="Play/Pause" Width="75" Height="25" Margin="10" />
+                    <Button Content="Next" Width="75" Height="25" Margin="10" />
+                    <Button Content="Stop" Width="75" Height="25" Margin="10" />
+                </StackPanel>
             </StackPanel>
         </DockPanel>
     </Grid>
