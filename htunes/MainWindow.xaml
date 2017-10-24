@@ -24,14 +24,14 @@
         <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
             <ListBox Height="Auto" Width="100" Margin="10,50,10,10" DockPanel.Dock="Left" />
             <StackPanel Height="Auto" Width="Auto" Margin="10,50,10,10">
-                <DataGrid x:Name="songList" Height="Auto"
+                <DataGrid x:Name="songGrid" Height="Auto"
                           Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
                           GridLinesVisibility="Horizontal" ColumnWidth="*">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-                        <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
-                        <DataGridTextColumn Binding="{Binding Album}" Header="Album" />
-                        <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" />
+                        <DataGridTextColumn Binding="{Binding title}" Header="Title" />
+                        <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />
+                        <DataGridTextColumn Binding="{Binding album}" Header="Album" />
+                        <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
                     </DataGrid.Columns>
                     <DataGrid.RowDetailsTemplate>
                         <DataTemplate>
@@ -39,9 +39,9 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="64" Height="64"></Image>
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Title, StringFormat=Title: {0}}" />
-                                        <TextBlock Text="{Binding Artist, StringFormat=Artist: {0}}" />
-                                        <TextBlock Text="{Binding Length, StringFormat=Length: {0}}" />
+                                        <TextBlock Text="{Binding title, StringFormat=Title: {0}}" />
+                                        <TextBlock Text="{Binding artist, StringFormat=Artist: {0}}" />
+                                        <TextBlock Text="{Binding length, StringFormat=Length: {0}}" />
                                         <TextBlock>
                                             <Hyperlink NavigateUri="http://www.google.com">
                                                 More info on Last.FM

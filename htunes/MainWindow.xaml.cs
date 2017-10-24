@@ -15,12 +15,12 @@ namespace htunes {
         public MainWindow() {
             InitializeComponent();
             musicLib = new MusicLib();
-            setupListBox();
+            setupSongGrid();
         }
 
-        public void setupListBox()
+        public void setupSongGrid()
         {
-            songList.ItemsSource = musicLib.Songs.AsEnumerable();
+            songGrid.ItemsSource = musicLib.Songs.DefaultView;
         }
     }
 }
