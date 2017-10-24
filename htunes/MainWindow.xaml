@@ -26,7 +26,7 @@
             <StackPanel Height="Auto" Width="Auto" Margin="10,50,10,10">
                 <DataGrid x:Name="songList" Height="Auto"
                           Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
-                          GridLinesVisibility="Horizontal">
+                          GridLinesVisibility="Horizontal" ColumnWidth="*">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
                         <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" />
