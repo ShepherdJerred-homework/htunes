@@ -34,10 +34,10 @@ namespace htunes {
             PlaylistList.ItemsSource = PlaylistListItems;
 
             PlaylistList.SelectedIndex = 0;
-            
+
             PlaylistList.SelectionChanged += PlaylistListItem_Click;
         }
-        
+
         private void SetupSongGrid() {
             UpdateSongList(musicLib.Songs.DefaultView);
             SongGrid.CellEditEnding += SongGrid_CellEndEdit;
@@ -46,15 +46,18 @@ namespace htunes {
         }
 
         private void UpdateSongList(DataView data) {
-            // TODO We should order this by playlist position or song ID
-            // Might want to perform a join on the playlist with song?
-            // Add data to the position column
             SongGrid.ItemsSource = data;
 
             List<Song> songs = new List<Song>();
 
             foreach (DataRowView songRow in data) {
-                int id = (int) songRow.Row["id"];
+                int id;
+                if (IsPlaylistSelected) {
+                    id = Convert.ToInt32((string) songRow.Row["id"]);
+                }
+                else {
+                    id = (int) songRow.Row["id"];
+                }
                 Song song = musicLib.GetSong(id);
                 songs.Add(song);
             }
@@ -71,17 +74,20 @@ namespace htunes {
         }
 
         private void PlaylistListItem_Click(object sender, RoutedEventArgs e) {
-            // TODO Set IsPlaylistSelected based on clicked item
-            IsPlaylistSelected = false;
+            
+            CurrentPlaylist = (string) PlaylistList.SelectedItems[0];
+            IsPlaylistSelected = CurrentPlaylist != "All Music";
+
             if (IsPlaylistSelected) {
                 StopEditing();
                 DisableEditButton();
-                // TODO Get the new data source from selected playlist
-                UpdateSongList(null);
+                UpdateSongList(musicLib.SongsForPlaylist(CurrentPlaylist).DefaultView);
+                PositionColumn.Visibility = Visibility.Visible;
             }
             else {
                 EnableEditButton();
                 UpdateSongList(musicLib.Songs.DefaultView);
+                PositionColumn.Visibility = Visibility.Hidden;
             }
         }
 
@@ -108,7 +114,8 @@ namespace htunes {
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
             if (musicPlayer.IsPlaying) {
                 PauseSong();
-            } else {
+            }
+            else {
                 if (musicPlayer.IsPaused) {
                     ResumeSong();
                 }
@@ -153,7 +160,6 @@ namespace htunes {
 
         // https://stackoverflow.com/questions/18315786/confirmation-box-in-c-sharp-wpf
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e) {
-
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["id"];
 
