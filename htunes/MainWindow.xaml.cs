@@ -27,12 +27,14 @@ namespace htunes {
 
         private void SetupSongGrid() {
             UpdateSongList(musicLib.Songs.DefaultView);
+            SongGrid.CellEditEnding += SongGrid_CellEndEdit;
             SongGridContextMenuPlay.Click += PlayMenuItem_Click;
             SongGridContextMenuDelete.Click += DeleteMenuItem_Click;
         }
 
         private void UpdateSongList(DataView data) {
             // TODO We should order this by playlist position or song ID
+            // Might want to perform a join on the playlist with song?
             // Add data to the position column
             SongGrid.ItemsSource = data;
 
@@ -50,6 +52,7 @@ namespace htunes {
         private void SetupButtonListeners() {
             ButtonPrevious.Click += PreviousButton_Click;
             ButtonPlayPause.Click += PlayPauseButton_Click;
+            ButtonStop.Click += StopButton_Click;
             ButtonNext.Click += NextButton_Click;
             ButtonEdit.Click += EditButton_Click;
         }
@@ -60,7 +63,7 @@ namespace htunes {
             if (IsPlaylistSelected) {
                 StopEditing();
                 DisableEditButton();
-                // TODO Get the new data source from Playlist
+                // TODO Get the new data source from selected playlist
                 UpdateSongList(null);
             }
             else {
@@ -90,11 +93,9 @@ namespace htunes {
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
-            // TODO Toggle play/pause
             if (musicPlayer.IsPlaying) {
                 PauseSong();
-            }
-            else {
+            } else {
                 if (musicPlayer.IsPaused) {
                     ResumeSong();
                 }
@@ -104,19 +105,8 @@ namespace htunes {
             }
         }
 
-        private void PlaySong() {
-            ButtonPlayPause.Content = "Pause";
-            musicPlayer.Play();
-        }
-
-        private void PauseSong() {
-            ButtonPlayPause.Content = "Play";
-            musicPlayer.Pause();
-        }
-
-        private void ResumeSong() {
-            ButtonPlayPause.Content = "Pause";
-            musicPlayer.Resume();
+        private void StopButton_Click(object sender, RoutedEventArgs e) {
+            musicPlayer.Stop();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e) {
@@ -136,16 +126,6 @@ namespace htunes {
             }
         }
 
-        private void StartEditing() {
-            ButtonEdit.Content = "Stop Editing";
-            SongGrid.IsReadOnly = false;
-        }
-
-        private void StopEditing() {
-            ButtonEdit.Content = "Start Editing";
-            SongGrid.IsReadOnly = true;
-        }
-
         private void PlayMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["title"];
@@ -157,23 +137,60 @@ namespace htunes {
 
         // https://stackoverflow.com/questions/18315786/confirmation-box-in-c-sharp-wpf
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e) {
-            // TODO Remove from playlist if a playlist is selected
+
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
-            String songTitle = selectedItem["title"] as String;
+            int songId = (int) selectedItem["id"];
 
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
-                "Are you sure you want to delete " + songTitle + "?",
-                "Confirm deleting song",
-                System.Windows.MessageBoxButton.YesNo);
-
-            if (messageBoxResult == MessageBoxResult.Yes) {
-                // TODO Delete from database
-                selectedItem.Delete();
+            if (IsPlaylistSelected) {
+                // TODO Remove song from playlist
+                // musicLib.RemoveSongFromPlaylist();
             }
+            else {
+                String songTitle = selectedItem["title"] as String;
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
+                    "Are you sure you want to delete " + songTitle + "?",
+                    "Confirm deleting song",
+                    System.Windows.MessageBoxButton.YesNo);
+
+                if (messageBoxResult == MessageBoxResult.Yes) {
+                    musicLib.DeleteSong(songId);
+                }
+            }
+            selectedItem.Delete();
+            SaveDatabase();
         }
 
-        private void SongGrid_CellEndEdit(object sender, RoutedEventArgs e) {
-            // TODO Update database
+        private void SongGrid_CellEndEdit(object sender, DataGridCellEditEndingEventArgs e) {
+            SaveDatabase();
+        }
+
+        private void PlaySong() {
+            ButtonPlayPause.Content = "Pause";
+            musicPlayer.Play();
+        }
+
+        private void PauseSong() {
+            ButtonPlayPause.Content = "Play";
+            musicPlayer.Pause();
+        }
+
+        private void ResumeSong() {
+            ButtonPlayPause.Content = "Pause";
+            musicPlayer.Resume();
+        }
+
+        private void StartEditing() {
+            ButtonEdit.Content = "Stop Editing";
+            SongGrid.IsReadOnly = false;
+        }
+
+        private void StopEditing() {
+            ButtonEdit.Content = "Start Editing";
+            SongGrid.IsReadOnly = true;
+        }
+
+        private void SaveDatabase() {
+            musicLib.Save();
         }
     }
 }

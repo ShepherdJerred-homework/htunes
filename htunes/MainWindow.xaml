@@ -36,6 +36,7 @@
                                     DockPanel.Dock="Bottom" Margin="0, 10, 0, 0">
                         <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10, 0, 10, 0" />
                         <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10, 0, 10, 0" />
+                        <Button x:Name="ButtonStop" Content="Stop" Width="75" Height="25" Margin="10, 0, 10, 0" />
                         <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10, 0, 10, 0" />
                         <Button x:Name="ButtonEdit" Content="Start Editing" Width="100" Height="25" Margin="10, 0, 10, 0" />
                     </StackPanel>

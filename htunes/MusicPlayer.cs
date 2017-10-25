@@ -51,6 +51,12 @@ namespace htunes {
             MediaPlayer.Play();
         }
 
+        public void Stop() {
+            IsPaused = false;
+            IsPlaying = false;
+            MediaPlayer.Stop();
+        }
+
         public void PlayNext() {
             if (IsPlaying) {
                 if (CurrentSong + 1 < SongList.Count) {
@@ -58,8 +64,7 @@ namespace htunes {
                     Play();
                 }
                 else {
-                    IsPlaying = false;
-                    MediaPlayer.Stop();
+                    Stop();
                 }
             }
         }
@@ -71,8 +76,7 @@ namespace htunes {
                     Play();
                 }
                 else {
-                    IsPlaying = false;
-                    MediaPlayer.Stop();
+                    Stop();
                 }
             }
         }
