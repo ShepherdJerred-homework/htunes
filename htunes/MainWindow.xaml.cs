@@ -17,46 +17,47 @@ namespace htunes {
         public MainWindow() {
             InitializeComponent();
             musicLib = new MusicLib();
-            setupSongGrid();
+            SetupSongGrid();
+            SetupButtonListeners();
         }
 
-        private void setupSongGrid() {
+        private void SetupSongGrid() {
             SongGrid.ItemsSource = musicLib.Songs.DefaultView;
-            SongGridContextMenuPlay.Click += playMenuItem_Click;
-            SongGridContextMenuDelete.Click += deleteMenuItem_Click;
+            SongGridContextMenuPlay.Click += PlayMenuItem_Click;
+            SongGridContextMenuDelete.Click += DeleteMenuItem_Click;
         }
 
-        private void setupButtonListeners() {
-            ButtonPrevious.Click += previousButton_Click;
-            ButtonPlayPause.Click += playMenuItem_Click;
-            ButtonNext.Click += nextButton_Click;
-            ButtonEdit.Click += editButton_Click;
+        private void SetupButtonListeners() {
+            ButtonPrevious.Click += PreviousButton_Click;
+            ButtonPlayPause.Click += PlayMenuItem_Click;
+            ButtonNext.Click += NextButton_Click;
+            ButtonEdit.Click += EditButton_Click;
         }
 
-        private void previousButton_Click(object sender, RoutedEventArgs e) {
+        private void PreviousButton_Click(object sender, RoutedEventArgs e) {
 
         }
 
-        private void playPauseButton_Click(object sender, RoutedEventArgs e) {
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["id"];
         }
 
-        private void nextButton_Click(object sender, RoutedEventArgs e) {
+        private void NextButton_Click(object sender, RoutedEventArgs e) {
 
         }
 
-        private void editButton_Click(object sender, RoutedEventArgs e) {
+        private void EditButton_Click(object sender, RoutedEventArgs e) {
             // TODO Don't do this if we are in a playlist
             SongGrid.IsReadOnly = !SongGrid.IsReadOnly;
         }
 
-        private void playMenuItem_Click(object sender, RoutedEventArgs e) {
+        private void PlayMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["id"];
         }
 
-        private void deleteMenuItem_Click(object sender, RoutedEventArgs e) {
+        private void DeleteMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["id"];
 
