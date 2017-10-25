@@ -86,7 +86,7 @@ namespace hTunes {
                 Filename = filename
             };
 
-            // TODO fix function call
+            // TODO fix function call, should probably do Last.FM stuff
             // GetSongData(s);
 
             AddSong(s);

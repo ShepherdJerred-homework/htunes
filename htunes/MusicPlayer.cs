@@ -1,43 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Media;
 
-namespace htunes
-{
+namespace htunes {
     class MusicPlayer {
 
-        private SoundPlayer Player;
-        public Queue<Song> SongQueue { get; set; }
-        public Song CurrentSong { get; private set; }
+        private MediaPlayer MediaPlayer;
+        private List<Song> songList;
+        public List<Song> SongList {
+            get => songList;
+            set {
+                songList = value;
+                ResetCurrentSong();
+            }
+        }
+        public int CurrentSong { get; private set; }
         public bool IsPlaying { get; private set; }
+        public bool IsPaused { get; private set; }
 
-        // https://stackoverflow.com/questions/3502311/how-to-play-a-sound-in-c-net
+        public MusicPlayer() {
+            MediaPlayer = new MediaPlayer();
+        }
+
+        // TODO Play next song after song finishes
+        // http://www.wpf-tutorial.com/audio-video/playing-audio/
         public void Play() {
-            // TODO Play next song after song finishes
-            CurrentSong = SongQueue.Dequeue();
-            Player = new System.Media.SoundPlayer(CurrentSong.Filename);
-            Player.Play();
+            IsPaused = false;
+            IsPlaying = true;
+            MediaPlayer.Stop();
+            MediaPlayer.Open(new Uri(SongList[CurrentSong].Filename));
+            MediaPlayer.Play();
         }
 
         public void Play(Song song) {
-            CurrentSong = song;
-            Player = new System.Media.SoundPlayer(CurrentSong.Filename);
-            Player.Play();
+            SongList = new List<Song> { song };
+            Play();
         }
 
         public void Pause() {
-            
+            IsPaused = true;
+            IsPlaying = false;
+            MediaPlayer.Pause();
+        }
+
+        public void Resume() {
+            IsPaused = false;
+            IsPlaying = true;
+            MediaPlayer.Play();
         }
 
         public void PlayNext() {
-            
+            if (IsPlaying) {
+                if (CurrentSong + 1 < SongList.Count) {
+                    CurrentSong++;
+                    Play();
+                }
+                else {
+                    IsPlaying = false;
+                    MediaPlayer.Stop();
+                }
+            }
         }
 
         public void PlayPrevious() {
-            
+            if (IsPlaying) {
+                if (CurrentSong != 0) {
+                    CurrentSong--;
+                    Play();
+                }
+                else {
+                    IsPlaying = false;
+                    MediaPlayer.Stop();
+                }
+            }
+        }
+
+        public void ResetCurrentSong() {
+            CurrentSong = 0;
         }
     }
 }

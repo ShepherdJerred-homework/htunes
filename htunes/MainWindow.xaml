@@ -32,19 +32,20 @@
                 <ListBox Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10"/>
                 <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                 <DockPanel Grid.Column="2" Margin="10,10,10,10" Height="Auto" Width="Auto" LastChildFill="True" VerticalAlignment="Stretch">
-                    <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center"
-                                    DockPanel.Dock="Bottom">
-                        <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10" />
-                        <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10" />
-                        <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10" />
-                        <Button x:Name="ButtonEdit" Content="Start Editing" Width="100" Height="25" Margin="10" />
+                    <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    DockPanel.Dock="Bottom" Margin="0, 10, 0, 0">
+                        <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10, 0, 10, 0" />
+                        <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10, 0, 10, 0" />
+                        <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10, 0, 10, 0" />
+                        <Button x:Name="ButtonEdit" Content="Start Editing" Width="100" Height="25" Margin="10, 0, 10, 0" />
                     </StackPanel>
                     <DataGrid x:Name="SongGrid" Height="Auto" SelectionMode="Single"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
                               GridLinesVisibility="Horizontal" ColumnWidth="*" IsReadOnly="True"
                                   VerticalAlignment="Stretch" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Position" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Position" SortDirection="Descending" CanUserSort="True"
+                                                Visibility="Hidden"></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding id}" Header="ID" Visibility="Hidden" />
                             <DataGridTextColumn Binding="{Binding title}" Header="Title" />
                             <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />

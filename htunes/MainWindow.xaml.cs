@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using hTunes;
 
 namespace htunes {
@@ -23,15 +26,25 @@ namespace htunes {
         }
 
         private void SetupSongGrid() {
-            UpdateMusicPlayerQueue(musicLib.Songs.DefaultView);
+            UpdateSongList(musicLib.Songs.DefaultView);
             SongGridContextMenuPlay.Click += PlayMenuItem_Click;
             SongGridContextMenuDelete.Click += DeleteMenuItem_Click;
         }
 
-        private void UpdateMusicPlayerQueue(IEnumerable newQueue) {
+        private void UpdateSongList(DataView data) {
             // TODO We should order this by playlist position or song ID
             // Add data to the position column
-            SongGrid.ItemsSource = newQueue;
+            SongGrid.ItemsSource = data;
+
+            List<Song> songs = new List<Song>();
+
+            foreach (DataRowView songRow in data) {
+                int id = (int) songRow.Row["id"];
+                Song song = musicLib.GetSong(id);
+                songs.Add(song);
+            }
+
+            musicPlayer.SongList = songs;
         }
 
         private void SetupButtonListeners() {
@@ -47,11 +60,12 @@ namespace htunes {
             if (IsPlaylistSelected) {
                 StopEditing();
                 DisableEditButton();
+                // TODO Get the new data source from Playlist
+                UpdateSongList(null);
             }
             else {
                 EnableEditButton();
-                // TODO Get the new data source
-                UpdateMusicPlayerQueue(null);
+                UpdateSongList(musicLib.Songs.DefaultView);
             }
         }
 
@@ -65,14 +79,28 @@ namespace htunes {
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e) {
             musicPlayer.PlayPrevious();
+            CheckQueueOutOfBounds();
+        }
+
+        private void CheckQueueOutOfBounds() {
+            if (!musicPlayer.IsPlaying) {
+                ButtonPlayPause.Content = "Play";
+                musicPlayer.ResetCurrentSong();
+            }
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
             // TODO Toggle play/pause
             if (musicPlayer.IsPlaying) {
                 PauseSong();
-            } else {
-                PlaySong();
+            }
+            else {
+                if (musicPlayer.IsPaused) {
+                    ResumeSong();
+                }
+                else {
+                    PlaySong();
+                }
             }
         }
 
@@ -86,8 +114,14 @@ namespace htunes {
             musicPlayer.Pause();
         }
 
+        private void ResumeSong() {
+            ButtonPlayPause.Content = "Pause";
+            musicPlayer.Resume();
+        }
+
         private void NextButton_Click(object sender, RoutedEventArgs e) {
             musicPlayer.PlayNext();
+            CheckQueueOutOfBounds();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e) {
@@ -95,7 +129,8 @@ namespace htunes {
                 SongGrid.IsReadOnly = !SongGrid.IsReadOnly;
                 if (SongGrid.IsReadOnly) {
                     StopEditing();
-                } else {
+                }
+                else {
                     StartEditing();
                 }
             }
