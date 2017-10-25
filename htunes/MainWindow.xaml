@@ -14,68 +14,78 @@
 
 
     <Grid>
-        <ToolBarPanel>
-            <ToolBar Band="1" BandIndex="1" Height="44" VerticalAlignment="Top" Width="Auto">
-                <Button>
-                    <Image Source="music_folder.ico" />
-                </Button>
-                <Button>
-                    <Image Source="playlist_new.ico" />
-                </Button>
-                <Button>
-                    <Image Source="get_info.ico" />
-                </Button>
-                <!--<TextBox HorizontalAlignment="Right" Width="150"/>-->
-            </ToolBar>
-        </ToolBarPanel>
         <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
-            <ListBox Height="Auto" Width="100" Margin="10,50,10,10" DockPanel.Dock="Left" />
-            <StackPanel Height="Auto" Width="Auto" Margin="10,50,10,10">
-                <DataGrid x:Name="songGrid" Height="Auto"
-                          Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
-                          GridLinesVisibility="Horizontal" ColumnWidth="*">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding id}" Header="ID" Visibility="Hidden"></DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding title}" Header="Title" />
-                        <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />
-                        <DataGridTextColumn Binding="{Binding album}" Header="Album" />
-                        <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
-                    </DataGrid.Columns>
-                    <DataGrid.RowDetailsTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="64" Height="64"></Image>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding title, StringFormat=Title: {0}}" />
-                                        <TextBlock Text="{Binding artist, StringFormat=Artist: {0}}" />
-                                        <TextBlock Text="{Binding length, StringFormat=Length: {0}}" />
-                                        <TextBlock>
-                                            <Hyperlink NavigateUri="http://www.google.com">
-                                                More info on Last.FM
-                                            </Hyperlink>
-                                        </TextBlock>
+            <ToolBarPanel DockPanel.Dock="Top">
+                <ToolBar Height="44" Width="Auto">
+                    <Button>
+                        <Image Source="music_folder.ico" />
+                    </Button>
+                    <Button>
+                        <Image Source="playlist_new.ico" />
+                    </Button>
+                    <Button>
+                        <Image Source="get_info.ico" />
+                    </Button>
+                    <!--<TextBox HorizontalAlignment="Right" Width="150"/>-->
+                </ToolBar>
+            </ToolBarPanel>
+            <StatusBar Height="20" Width="Auto" DockPanel.Dock="Bottom" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <ListBox Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10"/>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                <StackPanel Grid.Column="2" Height="Auto" Width="Auto" Margin="10,10,10,10">
+                    <DataGrid x:Name="songGrid" Height="Auto"
+                              Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
+                              GridLinesVisibility="Horizontal" ColumnWidth="*" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding id}" Header="ID" Visibility="Hidden" />
+                            <DataGridTextColumn Binding="{Binding title}" Header="Title" />
+                            <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />
+                            <DataGridTextColumn Binding="{Binding album}" Header="Album" />
+                            <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="64" Height="64" />
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding title, StringFormat=Title: {0}}" />
+                                            <TextBlock Text="{Binding artist, StringFormat=Artist: {0}}" />
+                                            <TextBlock Text="{Binding length, StringFormat=Length: {0}}" />
+                                            <TextBlock>
+                                                <Hyperlink NavigateUri="http://www.google.com">
+                                                    More info on Last.FM
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </DataGrid.RowDetailsTemplate>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
 
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Command="Play" />
-                            <Separator />
-                            <MenuItem Command="Delete" />
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                </DataGrid>
-                <StackPanel Height="Auto" Width="Auto" Margin="0" Orientation="Horizontal">
-                    <Button Content="Previous" Width="75" Height="25" Margin="10" />
-                    <Button Content="Play/Pause" Width="75" Height="25" Margin="10" />
-                    <Button Content="Next" Width="75" Height="25" Margin="10" />
-                    <Button Content="Stop" Width="75" Height="25" Margin="10" />
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Play" />
+                                <Separator />
+                                <MenuItem Header="Delete" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <StackPanel Height="Auto" Width="Auto" Margin="0" Orientation="Horizontal">
+                        <Button Content="Previous" Width="75" Height="25" Margin="10" />
+                        <Button Content="Play/Pause" Width="75" Height="25" Margin="10" />
+                        <Button Content="Next" Width="75" Height="25" Margin="10" />
+                        <Button Content="Stop" Width="75" Height="25" Margin="10" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>
