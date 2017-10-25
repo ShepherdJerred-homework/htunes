@@ -44,6 +44,7 @@
                               GridLinesVisibility="Horizontal" ColumnWidth="*" IsReadOnly="True"
                                   VerticalAlignment="Stretch" CanUserAddRows="False">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Position" Visibility="Hidden"></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding id}" Header="ID" Visibility="Hidden" />
                             <DataGridTextColumn Binding="{Binding title}" Header="Title" />
                             <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />

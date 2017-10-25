@@ -28,6 +28,10 @@ namespace htunes
             Player.Play();
         }
 
+        public void Pause() {
+            
+        }
+
         public void PlayNext() {
             
         }

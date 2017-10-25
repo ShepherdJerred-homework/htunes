@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Data;
 using System.Windows;
 using hTunes;
@@ -22,18 +23,20 @@ namespace htunes {
         }
 
         private void SetupSongGrid() {
-            SetDefaultItemSource();
+            UpdateMusicPlayerQueue(musicLib.Songs.DefaultView);
             SongGridContextMenuPlay.Click += PlayMenuItem_Click;
             SongGridContextMenuDelete.Click += DeleteMenuItem_Click;
         }
 
-        private void SetDefaultItemSource() {
-            SongGrid.ItemsSource = musicLib.Songs.DefaultView;
+        private void UpdateMusicPlayerQueue(IEnumerable newQueue) {
+            // TODO We should order this by playlist position or song ID
+            // Add data to the position column
+            SongGrid.ItemsSource = newQueue;
         }
 
         private void SetupButtonListeners() {
             ButtonPrevious.Click += PreviousButton_Click;
-            ButtonPlayPause.Click += PlayMenuItem_Click;
+            ButtonPlayPause.Click += PlayPauseButton_Click;
             ButtonNext.Click += NextButton_Click;
             ButtonEdit.Click += EditButton_Click;
         }
@@ -47,7 +50,8 @@ namespace htunes {
             }
             else {
                 EnableEditButton();
-                SetDefaultItemSource();
+                // TODO Get the new data source
+                UpdateMusicPlayerQueue(null);
             }
         }
 
@@ -65,6 +69,21 @@ namespace htunes {
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
             // TODO Toggle play/pause
+            if (musicPlayer.IsPlaying) {
+                PauseSong();
+            } else {
+                PlaySong();
+            }
+        }
+
+        private void PlaySong() {
+            ButtonPlayPause.Content = "Pause";
+            musicPlayer.Play();
+        }
+
+        private void PauseSong() {
+            ButtonPlayPause.Content = "Play";
+            musicPlayer.Pause();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e) {
