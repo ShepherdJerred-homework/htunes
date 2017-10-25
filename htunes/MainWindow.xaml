@@ -40,7 +40,7 @@
                         <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10" />
                         <Button x:Name="ButtonEdit" Content="Edit" Width="75" Height="25" Margin="10" />
                     </StackPanel>
-                    <DataGrid x:Name="SongGrid" Height="Auto"
+                    <DataGrid x:Name="SongGrid" Height="Auto" SelectionMode="Single"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
                               GridLinesVisibility="Horizontal" ColumnWidth="*" IsReadOnly="True"
                                   VerticalAlignment="Stretch">
