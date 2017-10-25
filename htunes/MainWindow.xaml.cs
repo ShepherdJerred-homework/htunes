@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using hTunes;
 
 namespace htunes {
@@ -13,10 +9,12 @@ namespace htunes {
     /// </summary>
     public partial class MainWindow : Window {
         private MusicLib musicLib;
+        private MusicPlayer musicPlayer;
 
         public MainWindow() {
             InitializeComponent();
             musicLib = new MusicLib();
+            musicPlayer = new MusicPlayer();
             SetupSongGrid();
             SetupButtonListeners();
         }
@@ -35,16 +33,15 @@ namespace htunes {
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e) {
-
+            // TODO Play previous song
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
-            DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
-            int songId = (int) selectedItem["id"];
+            // TODO Toggle play/pause
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e) {
-
+            // TODO Play next song
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e) {
@@ -54,19 +51,31 @@ namespace htunes {
 
         private void PlayMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
-            int songId = (int) selectedItem["id"];
+            int songId = (int) selectedItem["title"];
+            
+            Song song = musicLib.GetSong(songId);
+            
+            musicPlayer.Play(song);
         }
 
+        // https://stackoverflow.com/questions/18315786/confirmation-box-in-c-sharp-wpf
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
-            int songId = (int) selectedItem["id"];
+            String songTitle = selectedItem["title"] as String;
 
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation",
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
+                "Are you sure you want to delete " + songTitle + "?",
+                "Confirm deleting song",
                 System.Windows.MessageBoxButton.YesNo);
+            
             if (messageBoxResult == MessageBoxResult.Yes) {
-                
+                // TODO Delete from database
+                selectedItem.Delete();
             }
         }
 
+        private void SongGrid_CellEndEdit(object sender, RoutedEventArgs e) {
+            // TODO Update database
+        }
     }
 }

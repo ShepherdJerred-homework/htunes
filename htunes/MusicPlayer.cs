@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace htunes
 {
     class MusicPlayer {
+
+        private SoundPlayer Player;
+        public Queue<Song> SongQueue { get; set; }
+        public Song CurrentSong { get; private set; }
+
         // https://stackoverflow.com/questions/3502311/how-to-play-a-sound-in-c-net
-        void playSong() {
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\mywavfile.wav");
-            player.Play();
+        public void Play() {
+            CurrentSong = SongQueue.Dequeue();
+            Player = new System.Media.SoundPlayer(CurrentSong.Filename);
+            Player.Play();
+        }
+
+        public void Play(Song song) {
+            CurrentSong = song;
+            Player = new System.Media.SoundPlayer(CurrentSong.Filename);
+            Player.Play();
         }
     }
 }
