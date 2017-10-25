@@ -22,9 +22,9 @@ namespace htunes {
 
         public MusicPlayer() {
             MediaPlayer = new MediaPlayer();
+            MediaPlayer.MediaEnded += MediaPlayer_AfterSong;
         }
 
-        // TODO Play next song after song finishes
         // http://www.wpf-tutorial.com/audio-video/playing-audio/
         public void Play() {
             IsPaused = false;
@@ -83,6 +83,10 @@ namespace htunes {
 
         public void ResetCurrentSong() {
             CurrentSong = 0;
+        }
+        
+        public void MediaPlayer_AfterSong (object sender, EventArgs e) {
+            PlayNext();
         }
     }
 }

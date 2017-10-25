@@ -15,6 +15,7 @@ namespace htunes {
         private MusicLib musicLib;
         private MusicPlayer musicPlayer;
         private bool IsPlaylistSelected { get; set; }
+        private String CurrentPlaylist { get; set; }
 
         public MainWindow() {
             InitializeComponent();
@@ -23,8 +24,20 @@ namespace htunes {
             IsPlaylistSelected = false;
             SetupSongGrid();
             SetupButtonListeners();
+            SetupPlaylistList();
         }
 
+        private void SetupPlaylistList() {
+            List<String> PlaylistListItems = new List<string>();
+            PlaylistListItems.Add("All Music");
+            PlaylistListItems.AddRange(musicLib.Playlists);
+            PlaylistList.ItemsSource = PlaylistListItems;
+
+            PlaylistList.SelectedIndex = 0;
+            
+            PlaylistList.SelectionChanged += PlaylistListItem_Click;
+        }
+        
         private void SetupSongGrid() {
             UpdateSongList(musicLib.Songs.DefaultView);
             SongGrid.CellEditEnding += SongGrid_CellEndEdit;
@@ -107,6 +120,9 @@ namespace htunes {
 
         private void StopButton_Click(object sender, RoutedEventArgs e) {
             musicPlayer.Stop();
+            if (!musicPlayer.IsPlaying) {
+                ButtonPlayPause.Content = "Play";
+            }
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e) {
@@ -128,7 +144,7 @@ namespace htunes {
 
         private void PlayMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
-            int songId = (int) selectedItem["title"];
+            int songId = (int) selectedItem["id"];
 
             Song song = musicLib.GetSong(songId);
 
@@ -142,8 +158,8 @@ namespace htunes {
             int songId = (int) selectedItem["id"];
 
             if (IsPlaylistSelected) {
-                // TODO Remove song from playlist
-                // musicLib.RemoveSongFromPlaylist();
+                // TODO Remove from playlist
+                // musicLib.RemoveSongFromPlaylist(position, songId, CurrentPlaylist);
             }
             else {
                 String songTitle = selectedItem["title"] as String;
@@ -189,6 +205,7 @@ namespace htunes {
             SongGrid.IsReadOnly = true;
         }
 
+        // TODO Doesn't seem to save last edit
         private void SaveDatabase() {
             musicLib.Save();
         }
