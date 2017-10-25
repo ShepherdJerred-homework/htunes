@@ -106,5 +106,11 @@
   <ItemGroup>
     <Resource Include="music_folder.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="playlist_new.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="get_info.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
