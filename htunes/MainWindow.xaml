@@ -7,12 +7,6 @@
         mc:Ignorable="d"
         Title="hTunes" Height="500" Width="800">
 
-    <Window.CommandBindings>
-        <CommandBinding Command="Play" Executed="PlayCommand_Executed" />
-        <CommandBinding Command="Delete" Executed="DeleteCommand_Executed" />
-    </Window.CommandBindings>
-
-
     <Grid>
         <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
             <ToolBarPanel DockPanel.Dock="Top">
@@ -39,7 +33,7 @@
                 <ListBox Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10"/>
                 <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                 <StackPanel Grid.Column="2" Height="Auto" Width="Auto" Margin="10,10,10,10">
-                    <DataGrid x:Name="songGrid" Height="Auto"
+                    <DataGrid x:Name="SongGrid" Height="Auto"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
                               GridLinesVisibility="Horizontal" ColumnWidth="*" IsReadOnly="True">
                         <DataGrid.Columns>
@@ -71,18 +65,18 @@
 
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Play" />
+                                <MenuItem x:Name="SongGridContextMenuPlay" Header="Play" />
                                 <Separator />
-                                <MenuItem Header="Delete" />
+                                <MenuItem x:Name="SongGridContextMenuDelete" Header="Delete" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
 
                     <StackPanel Height="Auto" Width="Auto" Margin="0" Orientation="Horizontal">
-                        <Button Content="Previous" Width="75" Height="25" Margin="10" />
-                        <Button Content="Play/Pause" Width="75" Height="25" Margin="10" />
-                        <Button Content="Next" Width="75" Height="25" Margin="10" />
-                        <Button Content="Stop" Width="75" Height="25" Margin="10" />
+                        <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10" />
+                        <Button x:Name="ButtonPlayPause" Content="Play/Pause" Width="75" Height="25" Margin="10" />
+                        <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10" />
+                        <Button x:Name="ButtonEdit" Content="Edit" Width="75" Height="25" Margin="10" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

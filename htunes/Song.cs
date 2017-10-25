@@ -13,6 +13,8 @@ namespace htunes {
         public string Genre { set; get; }
         public string Length { set; get; }
         public string Filename { set; get; }
+        public string InfoUrl { set; get; }
+        public string CoverUrl { set; get; }
 
         // Two songs are equal if all their properties are equal
         public override bool Equals(object obj) {

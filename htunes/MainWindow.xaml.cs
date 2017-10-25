@@ -20,25 +20,52 @@ namespace htunes {
             setupSongGrid();
         }
 
-        public void setupSongGrid() {
-            songGrid.ItemsSource = musicLib.Songs.DefaultView;
+        private void setupSongGrid() {
+            SongGrid.ItemsSource = musicLib.Songs.DefaultView;
+            SongGridContextMenuPlay.Click += playMenuItem_Click;
+            SongGridContextMenuDelete.Click += deleteMenuItem_Click;
         }
 
-        private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-            DataRowView selectedItem = songGrid.SelectedItem as DataRowView;
+        private void setupButtonListeners() {
+            ButtonPrevious.Click += previousButton_Click;
+            ButtonPlayPause.Click += playMenuItem_Click;
+            ButtonNext.Click += nextButton_Click;
+            ButtonEdit.Click += editButton_Click;
+        }
+
+        private void previousButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void playPauseButton_Click(object sender, RoutedEventArgs e) {
+            DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["id"];
-            
         }
 
-        private void DeleteCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-            Trace.Write("DELETE");
-            MessageBoxResult result = MessageBox.Show("Do you want to close this window?", "Confirmation",
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes) {
-                DataRowView selectedItem = songGrid.SelectedItem as DataRowView;
+        private void nextButton_Click(object sender, RoutedEventArgs e) {
 
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e) {
+            // TODO Don't do this if we are in a playlist
+            SongGrid.IsReadOnly = !SongGrid.IsReadOnly;
+        }
+
+        private void playMenuItem_Click(object sender, RoutedEventArgs e) {
+            DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
+            int songId = (int) selectedItem["id"];
+        }
+
+        private void deleteMenuItem_Click(object sender, RoutedEventArgs e) {
+            DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
+            int songId = (int) selectedItem["id"];
+
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation",
+                System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes) {
+                
             }
         }
-        
+
     }
 }
