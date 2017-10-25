@@ -20,10 +20,6 @@ Levi Mason (50%)
     * About dialog
         * Dialog box, not message box
     * Search bar control
-* Playlist ListBox
-    * List all music
-    * List playlists
-    * Need some way to communicate selected item between ListBox and DataGrid
 * LastFM API
     * Load all song data on program startup
     * Load song data as needed when adding songs
@@ -57,4 +53,8 @@ Jerred Shepherd (50%)
     * Save music.xml when changes are made
 * Resizable main window
     * Stretch/shrink contents
+* Playlist ListBox
+    * List all music
+    * List playlists
+    * Need some way to communicate selected item between ListBox and DataGrid
 * Music searching (Extra credit)
