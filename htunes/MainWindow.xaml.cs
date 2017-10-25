@@ -10,19 +10,25 @@ namespace htunes {
     public partial class MainWindow : Window {
         private MusicLib musicLib;
         private MusicPlayer musicPlayer;
+        private bool IsPlaylistSelected { get; set; }
 
         public MainWindow() {
             InitializeComponent();
             musicLib = new MusicLib();
             musicPlayer = new MusicPlayer();
+            IsPlaylistSelected = false;
             SetupSongGrid();
             SetupButtonListeners();
         }
 
         private void SetupSongGrid() {
-            SongGrid.ItemsSource = musicLib.Songs.DefaultView;
+            SetDefaultItemSource();
             SongGridContextMenuPlay.Click += PlayMenuItem_Click;
             SongGridContextMenuDelete.Click += DeleteMenuItem_Click;
+        }
+
+        private void SetDefaultItemSource() {
+            SongGrid.ItemsSource = musicLib.Songs.DefaultView;
         }
 
         private void SetupButtonListeners() {
@@ -32,8 +38,29 @@ namespace htunes {
             ButtonEdit.Click += EditButton_Click;
         }
 
+        private void PlaylistListItem_Click(object sender, RoutedEventArgs e) {
+            // TODO Set IsPlaylistSelected based on clicked item
+            IsPlaylistSelected = false;
+            if (IsPlaylistSelected) {
+                StopEditing();
+                DisableEditButton();
+            }
+            else {
+                EnableEditButton();
+                SetDefaultItemSource();
+            }
+        }
+
+        private void DisableEditButton() {
+            ButtonEdit.IsEnabled = false;
+        }
+
+        private void EnableEditButton() {
+            ButtonEdit.IsEnabled = true;
+        }
+
         private void PreviousButton_Click(object sender, RoutedEventArgs e) {
-            // TODO Play previous song
+            musicPlayer.PlayPrevious();
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e) {
@@ -41,25 +68,42 @@ namespace htunes {
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e) {
-            // TODO Play next song
+            musicPlayer.PlayNext();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e) {
-            // TODO Don't do this if we are in a playlist
-            SongGrid.IsReadOnly = !SongGrid.IsReadOnly;
+            if (!IsPlaylistSelected) {
+                SongGrid.IsReadOnly = !SongGrid.IsReadOnly;
+                if (SongGrid.IsReadOnly) {
+                    StopEditing();
+                } else {
+                    StartEditing();
+                }
+            }
+        }
+
+        private void StartEditing() {
+            ButtonEdit.Content = "Stop Editing";
+            SongGrid.IsReadOnly = false;
+        }
+
+        private void StopEditing() {
+            ButtonEdit.Content = "Start Editing";
+            SongGrid.IsReadOnly = true;
         }
 
         private void PlayMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             int songId = (int) selectedItem["title"];
-            
+
             Song song = musicLib.GetSong(songId);
-            
+
             musicPlayer.Play(song);
         }
 
         // https://stackoverflow.com/questions/18315786/confirmation-box-in-c-sharp-wpf
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e) {
+            // TODO Remove from playlist if a playlist is selected
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
             String songTitle = selectedItem["title"] as String;
 
@@ -67,7 +111,7 @@ namespace htunes {
                 "Are you sure you want to delete " + songTitle + "?",
                 "Confirm deleting song",
                 System.Windows.MessageBoxButton.YesNo);
-            
+
             if (messageBoxResult == MessageBoxResult.Yes) {
                 // TODO Delete from database
                 selectedItem.Delete();

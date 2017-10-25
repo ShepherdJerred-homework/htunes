@@ -35,9 +35,9 @@
                     <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center"
                                     DockPanel.Dock="Bottom">
                         <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10" />
-                        <Button x:Name="ButtonPlayPause" Content="Play/Pause" Width="75" Height="25" Margin="10" />
+                        <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10" />
                         <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10" />
-                        <Button x:Name="ButtonEdit" Content="Toggle Editing" Width="100" Height="25" Margin="10" />
+                        <Button x:Name="ButtonEdit" Content="Start Editing" Width="100" Height="25" Margin="10" />
                     </StackPanel>
                     <DataGrid x:Name="SongGrid" Height="Auto" SelectionMode="Single"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
