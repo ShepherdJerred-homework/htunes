@@ -223,6 +223,10 @@ namespace hTunes {
         /// <param name="playlist">Name of the playlist</param>
         /// <returns>True if the playlist was successfully added</returns>
         public bool AddPlaylist(string playlist) {
+            if (playlist == "")
+            {
+                return false;
+            }
             Console.WriteLine("AddPlaylist: " + playlist);
             DataTable table = musicDataSet.Tables["playlist"];
             DataRow row = table.NewRow();
