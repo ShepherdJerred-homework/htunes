@@ -94,12 +94,16 @@ namespace hTunes {
             };
 
             // TODO fix function call, should probably do Last.FM stuff
-            // GetSongData(s);
+            //GetSongData(s);
 
             AddSong(s);
             return s;
         }
 
+        public async void GetSongData(Song s)
+        {
+            s.CoverUrl = await GetURL(s);
+        }
 
         /// <summary>
         /// Return a Song for the given song ID. Returns null if the song was not found.
