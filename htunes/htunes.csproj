@@ -145,5 +145,10 @@
   <ItemGroup>
     <Resource Include="if_apple-music-2_2301791.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="music.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

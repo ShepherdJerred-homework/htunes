@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using hTunes;
 using Microsoft.Win32;
 using System.Windows.Input;
+using System.Linq;
 
 namespace htunes {
     /// <summary>
@@ -269,6 +270,79 @@ namespace htunes {
                 musicLib.RenamePlaylist(PlaylistList.SelectedItem.ToString(), newPlaylistForm.NewNameTextBox.Text);
                 SetupPlaylistList();
             }
+        }
+
+        private Point startPoint;
+
+        private void SongGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            // Start the drag-drop if mouse has moved far enough
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                DataRowView selectedSong = SongGrid.SelectedItem as DataRowView;
+
+                if (selectedSong != null)
+                {
+                    string songId = selectedSong.Row.ItemArray[0].ToString();
+                    DragDrop.DoDragDrop(SongGrid, songId, DragDropEffects.Copy);
+                }
+            }
+
+        }
+
+        private void SongGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+
+        private void PlaylistList_Drop(object sender, DragEventArgs e)
+        {
+            // If the DataObject contains string data, extract it
+            if (e.Data.GetDataPresent(DataFormats.StringFormat))
+            {
+                TextBlock playlistTextBlock = e.OriginalSource as TextBlock;
+                string songId = (string)e.Data.GetData(DataFormats.StringFormat);
+                string playlistName = playlistTextBlock.DataContext.ToString();
+                Song s;
+
+                try
+                {
+                    s = musicLib.GetSong(int.Parse(songId));
+                }
+                catch (Exception)
+                {
+                    s = null;
+                }
+                if (s != null)
+                {
+                    musicLib.AddSongToPlaylist(s.Id, playlistName);
+                }
+            }
+
+        }
+
+        private void PlaylistList_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.None;
+
+            if (e.Data.GetDataPresent(DataFormats.StringFormat))
+            {
+                ListBoxItem targetPlaylist = (ListBoxItem)sender;
+                string songId = e.Data.GetData(DataFormats.StringFormat) as string;
+                String playlist = targetPlaylist.Content.ToString();
+
+                if (musicLib.PlaylistExists(playlist) && musicLib.SongIds.Contains(songId))
+                {
+                    e.Effects = DragDropEffects.Copy;
+                }
+            }
+
         }
     }
 }

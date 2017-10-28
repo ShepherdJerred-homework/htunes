@@ -82,7 +82,7 @@
                     <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <ListBox x:Name="PlaylistList" Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10">
+                <ListBox x:Name="PlaylistList" Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10" AllowDrop="True" Drop="PlaylistList_Drop" DragOver="PlaylistList_DragOver">
                     <ListBox.ContextMenu>
                         <ContextMenu>
                             <MenuItem x:Name="PlaylistListContextMenuRename" Header="Rename" Click="RenameMenuItem_Click"/>
@@ -104,7 +104,7 @@
                     <DataGrid x:Name="SongGrid" Height="Auto" SelectionMode="Single"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
                               GridLinesVisibility="Horizontal" ColumnWidth="*" IsReadOnly="True"
-                                  VerticalAlignment="Stretch" CanUserAddRows="False">
+                                  VerticalAlignment="Stretch" CanUserAddRows="False" MouseMove="SongGrid_MouseMove" PreviewMouseLeftButtonDown="SongGrid_PreviewMouseLeftButtonDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="PositionColumn" Binding="{Binding position}" Header="Position" SortDirection="Descending" Visibility="Hidden"
                                                 ></DataGridTextColumn>
