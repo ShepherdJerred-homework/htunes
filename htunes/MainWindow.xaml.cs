@@ -243,6 +243,7 @@ namespace htunes {
             if (result == true)
             {
                 musicLib.AddPlaylist(newPlaylistForm.NewNameTextBox.Text);
+                SetupPlaylistList();
             }
         }
 
@@ -250,6 +251,20 @@ namespace htunes {
         {
             AboutForm aboutForm = new AboutForm();
             bool? result = aboutForm.ShowDialog();
+        }
+
+        private void RenameMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem selectedItem = PlaylistList.SelectedItem as ListBoxItem;
+            NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
+            newPlaylistForm.NewNameTextBox.Text = PlaylistList.SelectedItem.ToString();
+            newPlaylistForm.NewNameTextBox.SelectAll();
+            bool? result = newPlaylistForm.ShowDialog();
+            if (result == true)
+            {
+                musicLib.RenamePlaylist(PlaylistList.SelectedItem.ToString(), newPlaylistForm.NewNameTextBox.Text);
+                SetupPlaylistList();
+            }
         }
     }
 }

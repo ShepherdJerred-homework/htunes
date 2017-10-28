@@ -82,7 +82,15 @@
                     <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <ListBox x:Name="PlaylistList" Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10"/>
+                <ListBox x:Name="PlaylistList" Grid.Column="0" Height="Auto" Width="Auto" Margin="10,10,10,10">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="PlaylistListContextMenuRename" Header="Rename" Click="RenameMenuItem_Click"/>
+                            <Separator />
+                            <MenuItem x:Name="PlaylistListContextMenuDelete" Header="Delete" />
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
                 <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                 <DockPanel Grid.Column="2" Margin="10,10,10,10" Height="Auto" Width="Auto" LastChildFill="True" VerticalAlignment="Stretch">
                     <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"

@@ -6,9 +6,26 @@
         xmlns:local="clr-namespace:htunes"
         mc:Ignorable="d"
         Title="PlayList Name" Height="150" Width="300" >
+    <Window.Resources>
+        <ControlTemplate x:Key="HUButtonTemplate" TargetType="Button">
+            <Border Name="Border" BorderThickness="2" CornerRadius="3"
+                BorderBrush="Gold" Background="Black">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"                                 
+                              TextBlock.FontWeight="Bold"  
+                              TextBlock.Foreground="White"
+                              Content="{TemplateBinding Content}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Label Content="Playlist Name:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBox Name="NewNameTextBox" HorizontalAlignment="Center" VerticalAlignment="center" Width="100" BorderBrush="Blue"/>
-        <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="OkButton_Click"/>
+        <TextBox Name="NewNameTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" BorderBrush="Blue" />
+        <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Click="OkButton_Click" Template="{StaticResource HUButtonTemplate}" />
     </Grid>
 </Window>
