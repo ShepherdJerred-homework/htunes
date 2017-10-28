@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using hTunes;
+using Microsoft.Win32;
+using System.Windows.Input;
 
 namespace htunes {
     /// <summary>
@@ -202,18 +204,44 @@ namespace htunes {
         }
 
         private void StartEditing() {
-            ButtonEdit.Content = "Stop Editing";
+            ButtonEdit.Content = "Disable Editing";
             SongGrid.IsReadOnly = false;
         }
 
         private void StopEditing() {
-            ButtonEdit.Content = "Start Editing";
+            ButtonEdit.Content = "Enable Editing";
             SongGrid.IsReadOnly = true;
         }
 
         // TODO Doesn't seem to save last edit
         private void SaveDatabase() {
             musicLib.Save();
+        }
+
+        private void AddSongButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //https://github.com/fmccown/MiniPlayerWpf/blob/master/MiniPlayerWpf/MainWindow.xaml.cs
+            //Author: fmccown
+            openFileDialog.FileName = "";
+            openFileDialog.DefaultExt = "*.wma;*.wav;*mp3";
+            openFileDialog.Filter = "Media files|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*.wma|Wave files (*.wav)|*.wav|All files|*.*";
+
+            bool? result = openFileDialog.ShowDialog();
+
+            if(result == true)
+            {
+                musicLib.AddSong(openFileDialog.FileName);
+            }
+        }
+
+        private void NewPlaylistButton_Click(object sender, RoutedEventArgs e)
+        { }
+
+        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }

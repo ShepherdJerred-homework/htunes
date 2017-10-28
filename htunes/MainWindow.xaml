@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="hTunes" Height="500" Width="800">
-
+    <Window.CommandBindings>
+        <CommandBinding Command="Help" Executed="HelpCommand_Executed" />
+    </Window.CommandBindings>
     <Grid>
         <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
-            <ToolBarPanel DockPanel.Dock="Top">
-                <ToolBar Height="44" Width="Auto">
-                    <Button>
+            <ToolBar Height="44" Width="Auto" DockPanel.Dock="Top">
+                    <Button Click="AddSongButton_Click">
                         <Image Source="music_folder.ico" />
                     </Button>
                     <Button>
@@ -19,10 +20,8 @@
                     <Button>
                         <Image Source="get_info.ico" />
                     </Button>
-                    <!--<TextBox HorizontalAlignment="Right" Width="150"/>-->
                 </ToolBar>
-            </ToolBarPanel>
-            <StatusBar Height="20" Width="Auto" DockPanel.Dock="Bottom" />
+                <StatusBar Height="20" Width="Auto" DockPanel.Dock="Bottom" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -38,7 +37,7 @@
                         <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10, 0, 10, 0" />
                         <Button x:Name="ButtonStop" Content="Stop" Width="75" Height="25" Margin="10, 0, 10, 0" />
                         <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10, 0, 10, 0" />
-                        <Button x:Name="ButtonEdit" Content="Start Editing" Width="100" Height="25" Margin="10, 0, 10, 0" />
+                        <Button x:Name="ButtonEdit" Content="Enable Editing" Width="100" Height="25" Margin="10, 0, 10, 0" />
                     </StackPanel>
                     <DataGrid x:Name="SongGrid" Height="Auto" SelectionMode="Single"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"
