@@ -239,6 +239,7 @@ namespace htunes {
         private void NewPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
+            newPlaylistForm.NewNameTextBox.Focus();
             bool? result = newPlaylistForm.ShowDialog();
             if (result == true)
             {
@@ -258,6 +259,7 @@ namespace htunes {
             ListBoxItem selectedItem = PlaylistList.SelectedItem as ListBoxItem;
             NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
             newPlaylistForm.NewNameTextBox.Text = PlaylistList.SelectedItem.ToString();
+            newPlaylistForm.NewNameTextBox.Focus();
             newPlaylistForm.NewNameTextBox.SelectAll();
             bool? result = newPlaylistForm.ShowDialog();
             if (result == true)

@@ -25,7 +25,7 @@
     </Window.Resources>
     <Grid>
         <Label Content="Playlist Name:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBox Name="NewNameTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" BorderBrush="Blue" />
+        <TextBox Name="NewNameTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" BorderBrush="Blue" Focusable="True"/>
         <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Click="OkButton_Click" Template="{StaticResource HUButtonTemplate}" />
     </Grid>
 </Window>
