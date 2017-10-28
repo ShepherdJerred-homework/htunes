@@ -237,7 +237,14 @@ namespace htunes {
         }
 
         private void NewPlaylistButton_Click(object sender, RoutedEventArgs e)
-        { }
+        {
+            NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
+            bool? result = newPlaylistForm.ShowDialog();
+            if (result == true)
+            {
+                musicLib.AddPlaylist(newPlaylistForm.NewNameTextBox.Text);
+            }
+        }
 
         private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {

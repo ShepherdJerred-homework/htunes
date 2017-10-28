@@ -8,13 +8,67 @@
     <Window.CommandBindings>
         <CommandBinding Command="Help" Executed="HelpCommand_Executed" />
     </Window.CommandBindings>
+    <Window.Resources>
+        <ControlTemplate x:Key="HUButtonTemplate" TargetType="Button">
+            <Border Name="Border" BorderThickness="3" CornerRadius="10"
+                BorderBrush="Gold" Background="Black">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"                                 
+                              TextBlock.FontWeight="Bold"  
+                              TextBlock.Foreground="White"
+                              Content="{TemplateBinding Content}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Button.Opacity" Value="0.25"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="PlayButtonTemplate" TargetType="Button">
+            <Border Name="Border" BorderThickness="3" CornerRadius="10"
+                BorderBrush="Gold" Background="Green">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"                                 
+                              TextBlock.FontWeight="Bold"  
+                              TextBlock.Foreground="White"
+                              Content="{TemplateBinding Content}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+                <Trigger Property="Button.Content" Value="Pause">
+                    <Setter TargetName="Border" Property="Background" Value="Black" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="StopButtonTemplate" TargetType="Button">
+            <Border Name="Border" BorderThickness="3" CornerRadius="10"
+                BorderBrush="Gold" Background="Red">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"                                 
+                              TextBlock.FontWeight="Bold"  
+                              TextBlock.Foreground="White"
+                              Content="{TemplateBinding Content}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
         <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
             <ToolBar Height="44" Width="Auto" DockPanel.Dock="Top">
                     <Button Click="AddSongButton_Click">
                         <Image Source="music_folder.ico" />
                     </Button>
-                    <Button>
+                    <Button Click="NewPlaylistButton_Click">
                         <Image Source="playlist_new.ico" />
                     </Button>
                     <Button>
@@ -33,11 +87,11 @@
                 <DockPanel Grid.Column="2" Margin="10,10,10,10" Height="Auto" Width="Auto" LastChildFill="True" VerticalAlignment="Stretch">
                     <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
                                     DockPanel.Dock="Bottom" Margin="0, 10, 0, 0">
-                        <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10, 0, 10, 0" />
-                        <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10, 0, 10, 0" />
-                        <Button x:Name="ButtonStop" Content="Stop" Width="75" Height="25" Margin="10, 0, 10, 0" />
-                        <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10, 0, 10, 0" />
-                        <Button x:Name="ButtonEdit" Content="Enable Editing" Width="100" Height="25" Margin="10, 0, 10, 0" />
+                        <Button x:Name="ButtonPrevious" Content="Previous" Width="75" Height="25" Margin="10, 0, 10, 0" Template="{StaticResource HUButtonTemplate}" />
+                        <Button x:Name="ButtonPlayPause" Content="Play" Width="75" Height="25" Margin="10, 0, 10, 0" Template="{StaticResource PlayButtonTemplate}"/>
+                        <Button x:Name="ButtonStop" Content="Stop" Width="75" Height="25" Margin="10, 0, 10, 0" Template="{StaticResource StopButtonTemplate}"/>
+                        <Button x:Name="ButtonNext" Content="Next" Width="75" Height="25" Margin="10, 0, 10, 0" Template="{StaticResource HUButtonTemplate}"/>
+                        <Button x:Name="ButtonEdit" Content="Enable Editing" Width="100" Height="25" Margin="10, 0, 10, 0" Template="{StaticResource HUButtonTemplate}"/>
                     </StackPanel>
                     <DataGrid x:Name="SongGrid" Height="Auto" SelectionMode="Single"
                               Width="Auto" AutoGenerateColumns="False" HeadersVisibility="Column"

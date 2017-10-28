@@ -1,0 +1,14 @@
+﻿<Window x:Class="htunes.NewPlaylistForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:htunes"
+        mc:Ignorable="d"
+        Title="PlayList Name" Height="150" Width="300" >
+    <Grid>
+        <Label Content="Playlist Name:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox Name="NewNameTextBox" HorizontalAlignment="Center" VerticalAlignment="center" Width="100" BorderBrush="Blue"/>
+        <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="OkButton_Click"/>
+    </Grid>
+</Window>
