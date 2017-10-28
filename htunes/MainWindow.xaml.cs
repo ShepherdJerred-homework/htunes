@@ -248,7 +248,8 @@ namespace htunes {
 
         private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            AboutForm aboutForm = new AboutForm();
+            bool? result = aboutForm.ShowDialog();
         }
     }
 }
