@@ -301,6 +301,9 @@ namespace htunes {
 
         private void PlaylistList_Drop(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.StringFormat)) {
+                
+                
+                
                 TextBlock playlistTextBlock = e.OriginalSource as TextBlock;
                 string songId = (string) e.Data.GetData(DataFormats.StringFormat);
                 string playlistName = playlistTextBlock.DataContext.ToString();
@@ -315,6 +318,7 @@ namespace htunes {
                 }
                 if (s != null) {
                     musicLib.AddSongToPlaylist(s.Id, playlistName);
+                    SaveDatabase();
                 }
             }
         }
@@ -323,9 +327,12 @@ namespace htunes {
             e.Effects = DragDropEffects.None;
 
             if (e.Data.GetDataPresent(DataFormats.StringFormat)) {
+                TextBlock targetPlaylist = (TextBlock) sender;
+                String playlist = targetPlaylist.Text;
+                
                 string songId = e.Data.GetData(DataFormats.StringFormat) as string;
 
-                if (musicLib.SongIds.Contains(songId)) {
+                if (musicLib.SongIds.Contains(songId) && playlist != "All Music") {
                     e.Effects = DragDropEffects.Copy;
                 }
             }
