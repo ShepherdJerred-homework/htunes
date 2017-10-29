@@ -2,7 +2,7 @@
 A Windows application for playing and organizing music
 
 ### Known bugs
-* Drag and drop doesn't work
+* None
 
 ### Extra credit
 * Rename/delete playlists
