@@ -102,6 +102,7 @@ namespace hTunes {
         public async void GetSongData(Song s) {
             // TODO set info url
             s.CoverUrl = await GetURL(s);
+            s.InfoUrl = "https://www.last.fm/music/" + s.Artist;
             UpdateSong(s.Id, s);
             Save();
         }

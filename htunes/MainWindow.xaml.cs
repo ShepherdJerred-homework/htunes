@@ -232,7 +232,7 @@ namespace htunes {
 
             if (result == true) {
                 musicLib.AddSong(openFileDialog.FileName);
-                SongGrid.SelectedItem = musicLib.SongIds.Length - 1;
+                SongGrid.SelectedIndex = SongGrid.Items.Count - 1;
                 SongGrid.Focus();
             }
         }
