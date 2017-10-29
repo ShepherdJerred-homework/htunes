@@ -25,7 +25,7 @@
     </Window.Resources>
     <Grid Margin="0,0,-0.4,-1.6">
         <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="Auto"
-               Source="if_apple-music-2_2301791.ico" Margin="47,34,0,0" />
+               Source="htunes_icon.ico" Margin="47,34,0,0" />
         <Label Content="hTunes" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Playbill" FontSize="72"
                FontStyle="Italic" Foreground="RoyalBlue" Margin="0,42,46.4,0" />
         <TextBlock Text=" By Levi Mason and Jerred Shepherd " FontSize="16" HorizontalAlignment="Center"
