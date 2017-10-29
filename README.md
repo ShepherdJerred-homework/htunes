@@ -2,12 +2,12 @@
 A Windows application for playing and organizing music
 
 ### Known bugs
-* Open browser when clicking more info link
-* Fix drag and drop
-* Remove song from playlist when deleting from context menu in DataGrid
+* Drag and drop doesn't work
+* Removing playlist doesn't work
 
 ### Extra credit
-* None
+* Rename/delete playlists
+* ControlTemplate
 
 ### Contributions
 Levi Mason (50%)
@@ -21,7 +21,6 @@ Levi Mason (50%)
         * Add song to end of playlist by dragging from DataGrid
     * About dialog
         * Dialog box, not message box
-    * Search bar control
 * LastFM API
     * Load all song data on program startup
     * Load song data as needed when adding songs
@@ -59,3 +58,4 @@ Jerred Shepherd (50%)
     * List all music
     * List playlists
     * Need some way to communicate selected item between ListBox and DataGrid
+    * Drag and Drop
