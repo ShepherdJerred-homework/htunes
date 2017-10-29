@@ -11,7 +11,7 @@
     <Window.Resources>
         <ControlTemplate x:Key="HUButtonTemplate" TargetType="Button">
             <Border Name="Border" BorderThickness="3" CornerRadius="10"
-                    BorderBrush="Gold" Background="Black">
+                    BorderBrush="#FFB900" Background="#4C4A48">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   TextBlock.FontWeight="Bold"
@@ -20,7 +20,7 @@
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                    <Setter TargetName="Border" Property="Background" Value="#0078D7" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Button.Opacity" Value="0.25" />
@@ -29,7 +29,7 @@
         </ControlTemplate>
         <ControlTemplate x:Key="PlayButtonTemplate" TargetType="Button">
             <Border Name="Border" BorderThickness="3" CornerRadius="10"
-                    BorderBrush="Gold" Background="Green">
+                    BorderBrush="#00CC6A" Background="#00CC6A">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   TextBlock.FontWeight="Bold"
@@ -38,7 +38,7 @@
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                    <Setter TargetName="Border" Property="Background" Value="#0078D7" />
                 </Trigger>
                 <Trigger Property="Button.Content" Value="Pause">
                     <Setter TargetName="Border" Property="Background" Value="Black" />
@@ -47,7 +47,7 @@
         </ControlTemplate>
         <ControlTemplate x:Key="StopButtonTemplate" TargetType="Button">
             <Border Name="Border" BorderThickness="3" CornerRadius="10"
-                    BorderBrush="Gold" Background="Red">
+                    BorderBrush="#E74856" Background="#E74856">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   TextBlock.FontWeight="Bold"
