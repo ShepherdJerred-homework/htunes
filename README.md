@@ -2,7 +2,9 @@
 A Windows application for playing and organizing music
 
 ### Known bugs
-* None
+* Open browser when clicking more info link
+* Fix drag and drop
+* Remove song from playlist when deleting from context menu in DataGrid
 
 ### Extra credit
 * None
@@ -57,4 +59,3 @@ Jerred Shepherd (50%)
     * List all music
     * List playlists
     * Need some way to communicate selected item between ListBox and DataGrid
-* Music searching (Extra credit)
