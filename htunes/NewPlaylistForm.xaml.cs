@@ -1,19 +1,15 @@
 ﻿using System.Windows;
 
-namespace htunes
-{
+namespace htunes {
     /// <summary>
     /// Interaction logic for NewPlaylistForm.xaml
     /// </summary>
-    public partial class NewPlaylistForm : Window
-    {
-        public NewPlaylistForm()
-        {
+    public partial class NewPlaylistForm {
+        public NewPlaylistForm() {
             InitializeComponent();
         }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void OkButton_Click(object sender, RoutedEventArgs e) {
             DialogResult = true;
         }
     }

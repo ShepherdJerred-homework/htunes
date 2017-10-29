@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Windows.Media;
 
 namespace htunes {
     class MusicPlayer {
-
         private MediaPlayer MediaPlayer;
         private List<Song> songList;
+
         public List<Song> SongList {
             get => songList;
             set {
@@ -16,6 +14,7 @@ namespace htunes {
                 ResetCurrentSong();
             }
         }
+
         public int CurrentSong { get; private set; }
         public bool IsPlaying { get; private set; }
         public bool IsPaused { get; private set; }
@@ -35,7 +34,7 @@ namespace htunes {
         }
 
         public void Play(Song song) {
-            SongList = new List<Song> { song };
+            SongList = new List<Song> {song};
             Play();
         }
 
@@ -84,8 +83,8 @@ namespace htunes {
         public void ResetCurrentSong() {
             CurrentSong = 0;
         }
-        
-        public void MediaPlayer_AfterSong (object sender, EventArgs e) {
+
+        public void MediaPlayer_AfterSong(object sender, EventArgs e) {
             PlayNext();
         }
     }

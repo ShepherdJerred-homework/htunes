@@ -68,25 +68,19 @@
                 <Button Click="AddSongButton_Click">
                     <Image Source="music_folder.ico" />
                     <Button.ToolTip>
-                        <ToolTip Content="Add Song">
-                            
-                        </ToolTip>
+                        <ToolTip Content="Add Song" />
                     </Button.ToolTip>
                 </Button>
                 <Button Click="NewPlaylistButton_Click">
                     <Image Source="playlist_new.ico" />
                     <Button.ToolTip>
-                        <ToolTip Content="Add Playlist">
-
-                        </ToolTip>
+                        <ToolTip Content="Add Playlist" />
                     </Button.ToolTip>
                 </Button>
                 <Button Command="Help">
                     <Image Source="get_info.ico" />
                     <Button.ToolTip>
-                        <ToolTip Content="About hTunes">
-
-                        </ToolTip>
+                        <ToolTip Content="About hTunes" />
                     </Button.ToolTip>
                 </Button>
             </ToolBar>

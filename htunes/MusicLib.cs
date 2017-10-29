@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using System.Text;
 using System.Data;
-using System.Diagnostics;
 using htunes;
 using System.Net;
 using System.IO;
@@ -24,17 +22,11 @@ namespace hTunes {
         /// <summary>
         /// The list of all song IDs in sorted order
         /// </summary>
-        public string[] SongIds {
-            get { return GetList("song", "id"); }
-        }
+        public string[] SongIds => GetList("song", "id");
 
-        public string[] Playlists {
-            get { return GetList("playlist", "name"); }
-        }
+        public string[] Playlists => GetList("playlist", "name");
 
-        public DataTable Songs {
-            get { return musicDataSet.Tables["song"]; }
-        }
+        public DataTable Songs => musicDataSet.Tables["song"];
 
         private string[] GetList(string tableName, string colName) {
             var items = from row in musicDataSet.Tables[tableName].AsEnumerable()
