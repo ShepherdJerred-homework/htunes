@@ -18,12 +18,13 @@ Levi Mason (50%)
         * Select song in DataGrid after adding
     * Add playlist
         * Add song to end of playlist by dragging from DataGrid
+        * Started coding Drag/Drop
     * About dialog
         * Dialog box, not message box
 * LastFM API
     * Load all song data on program startup
     * Load song data as needed when adding songs
-* ControlTemplate for look/behavior of playback buttons (Extra credit)
+* ControlTemplate for look/behavior of playback buttons (Extra credit) and most buttions
 * Playlist context menu (Extra credit)
     * Rename
         * Open dialog box, enter new playlist name
