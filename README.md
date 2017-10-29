@@ -1,6 +1,8 @@
 # [htunes](https://github.com/ShepherdJerred/htunes)
 A Windows application for playing and organizing music
 
+![Screenshot of hTunes](https://i.imgur.com/nj1K3r5.png)
+
 ### Known bugs
 * None
 
