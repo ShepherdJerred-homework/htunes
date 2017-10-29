@@ -165,13 +165,17 @@ namespace htunes {
         // https://stackoverflow.com/questions/18315786/confirmation-box-in-c-sharp-wpf
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e) {
             DataRowView selectedItem = SongGrid.SelectedItem as DataRowView;
-            int songId = (int) selectedItem["id"];
+            
+            int songId;
 
             if (IsPlaylistSelected) {
-                // TODO Remove from playlist
-                // musicLib.RemoveSongFromPlaylist(position, songId, CurrentPlaylist);
+                songId = Int32.Parse(selectedItem["id"] as string);
+                int position = Int32.Parse(selectedItem["position"] as string);
+                musicLib.RemoveSongFromPlaylist(position, songId, CurrentPlaylist);
+                UpdateSongList(musicLib.SongsForPlaylist(CurrentPlaylist).DefaultView);
             }
             else {
+                songId = (int) selectedItem["id"];
                 String songTitle = selectedItem["title"] as String;
                 MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
                     "Are you sure you want to delete " + songTitle + "?",
