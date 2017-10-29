@@ -271,6 +271,13 @@ namespace htunes {
             }
         }
 
+        private void DeletePlaylistMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem selectedItem = PlaylistList.SelectedItem as ListBoxItem;
+            musicLib.DeletePlaylist(PlaylistList.SelectedItem.ToString());
+            SetupPlaylistList();
+        }
+
         private Point startPoint;
 
         private void SongGrid_MouseMove(object sender, MouseEventArgs e) {
