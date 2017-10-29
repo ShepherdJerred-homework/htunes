@@ -6,6 +6,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Diagnostics;
 using htunes;
 using System.Net;
 using System.IO;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace hTunes {
     class MusicLib {
-
         const string API_KEY = "e1d7cac3d825c39c69e1e0f2a73ca7f8";
         private DataSet musicDataSet;
 
@@ -93,16 +93,17 @@ namespace hTunes {
                 Filename = filename
             };
 
-            // TODO fix function call, should probably do Last.FM stuff
-            //GetSongData(s);
+            GetSongData(s);
 
             AddSong(s);
             return s;
         }
 
-        public async void GetSongData(Song s)
-        {
+        public async void GetSongData(Song s) {
+            // TODO set info url
             s.CoverUrl = await GetURL(s);
+            UpdateSong(s.Id, s);
+            Save();
         }
 
         /// <summary>
@@ -151,6 +152,8 @@ namespace hTunes {
                 row["genre"] = song.Genre;
                 row["length"] = song.Length;
                 row["filename"] = song.Filename;
+                row["albumImage"] = song.CoverUrl;
+                row["url"] = song.InfoUrl;
 
                 return true;
             }
@@ -227,8 +230,7 @@ namespace hTunes {
         /// <param name="playlist">Name of the playlist</param>
         /// <returns>True if the playlist was successfully added</returns>
         public bool AddPlaylist(string playlist) {
-            if (playlist == "")
-            {
+            if (playlist == "") {
                 return false;
             }
             Console.WriteLine("AddPlaylist: " + playlist);
@@ -429,27 +431,20 @@ namespace hTunes {
             return table;
         }
 
-        public async Task<string> GetURL(Song s)
-        {
+        public async Task<string> GetURL(Song s) {
             String url = null;
 
             String query = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + API_KEY + "&" +
-                            "artist=" + WebUtility.UrlEncode(s.Artist) + "&track=" + WebUtility.UrlEncode(s.Title);
-            try
-            {
-                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                using (WebResponse response = await request.GetResponseAsync())
-                {
+                           "artist=" + WebUtility.UrlEncode(s.Artist) + "&track=" + WebUtility.UrlEncode(s.Title);
+            try {
+                HttpWebRequest request = WebRequest.Create(query) as HttpWebRequest;
+                using (WebResponse response = await request.GetResponseAsync()) {
                     Stream strm = response.GetResponseStream();
-                    using (XmlTextReader reader = new XmlTextReader(strm))
-                    {
-                        while (reader.Read())
-                        {
-                            if (reader.NodeType == XmlNodeType.Element)
-                            {
-                                if (reader.Name == "image")
-                                {
-                                    if (reader.GetAttribute("size") == "large")
+                    using (XmlTextReader reader = new XmlTextReader(strm)) {
+                        while (reader.Read()) {
+                            if (reader.NodeType == XmlNodeType.Element) {
+                                if (reader.Name == "image") {
+                                    if (reader.GetAttribute("size") == "medium")
                                         url = reader.ReadString();
                                 }
                             }
@@ -457,8 +452,7 @@ namespace hTunes {
                     }
                 }
             }
-            catch (WebException e)
-            {
+            catch (WebException e) {
                 // A 400 response is returned when the song is not in their library
                 Console.WriteLine("Error: " + e.Message);
             }

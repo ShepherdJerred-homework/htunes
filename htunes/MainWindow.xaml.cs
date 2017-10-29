@@ -77,7 +77,6 @@ namespace htunes {
         }
 
         private void PlaylistListItem_Click(object sender, RoutedEventArgs e) {
-            
             CurrentPlaylist = (string) PlaylistList.SelectedItems[0];
             IsPlaylistSelected = CurrentPlaylist != "All Music";
 
@@ -219,54 +218,48 @@ namespace htunes {
             musicLib.Save();
         }
 
-        private void AddSongButton_Click(object sender, RoutedEventArgs e)
-        {
+        //https://github.com/fmccown/MiniPlayerWpf/blob/master/MiniPlayerWpf/MainWindow.xaml.cs
+        //Author: fmccown
+        private void AddSongButton_Click(object sender, RoutedEventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            //https://github.com/fmccown/MiniPlayerWpf/blob/master/MiniPlayerWpf/MainWindow.xaml.cs
-            //Author: fmccown
             openFileDialog.FileName = "";
             openFileDialog.DefaultExt = "*.wma;*.wav;*mp3";
-            openFileDialog.Filter = "Media files|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*.wma|Wave files (*.wav)|*.wav|All files|*.*";
+            openFileDialog.Filter =
+                "Media files|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*.wma|Wave files (*.wav)|*.wav|All files|*.*";
 
             bool? result = openFileDialog.ShowDialog();
 
-            if(result == true)
-            {
+            if (result == true) {
                 musicLib.AddSong(openFileDialog.FileName);
                 SongGrid.SelectedItem = musicLib.SongIds.Length - 1;
                 SongGrid.Focus();
             }
         }
 
-        private void NewPlaylistButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void NewPlaylistButton_Click(object sender, RoutedEventArgs e) {
             NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
             newPlaylistForm.NewNameTextBox.Focus();
             bool? result = newPlaylistForm.ShowDialog();
-            if (result == true)
-            {
+            if (result == true) {
                 musicLib.AddPlaylist(newPlaylistForm.NewNameTextBox.Text);
                 SetupPlaylistList();
             }
         }
 
-        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
+        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
             AboutForm aboutForm = new AboutForm();
             bool? result = aboutForm.ShowDialog();
         }
 
-        private void RenameMenuItem_Click(object sender, RoutedEventArgs e)
-        {
+        private void RenameMenuItem_Click(object sender, RoutedEventArgs e) {
             ListBoxItem selectedItem = PlaylistList.SelectedItem as ListBoxItem;
             NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
             newPlaylistForm.NewNameTextBox.Text = PlaylistList.SelectedItem.ToString();
             newPlaylistForm.NewNameTextBox.Focus();
             newPlaylistForm.NewNameTextBox.SelectAll();
             bool? result = newPlaylistForm.ShowDialog();
-            if (result == true)
-            {
+            if (result == true) {
                 musicLib.RenamePlaylist(PlaylistList.SelectedItem.ToString(), newPlaylistForm.NewNameTextBox.Text);
                 SetupPlaylistList();
             }
@@ -274,8 +267,7 @@ namespace htunes {
 
         private Point startPoint;
 
-        private void SongGrid_MouseMove(object sender, MouseEventArgs e)
-        {
+        private void SongGrid_MouseMove(object sender, MouseEventArgs e) {
             // Get the current mouse position
             Point mousePos = e.GetPosition(null);
             Vector diff = startPoint - mousePos;
@@ -283,66 +275,52 @@ namespace htunes {
             // Start the drag-drop if mouse has moved far enough
             if (e.LeftButton == MouseButtonState.Pressed &&
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
-            {
+                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)) {
                 DataRowView selectedSong = SongGrid.SelectedItem as DataRowView;
 
-                if (selectedSong != null)
-                {
+                if (selectedSong != null) {
                     string songId = selectedSong.Row.ItemArray[0].ToString();
                     DragDrop.DoDragDrop(SongGrid, songId, DragDropEffects.Copy);
                 }
             }
-
         }
 
-        private void SongGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
+        private void SongGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             startPoint = e.GetPosition(null);
         }
 
-        private void PlaylistList_Drop(object sender, DragEventArgs e)
-        {
+        private void PlaylistList_Drop(object sender, DragEventArgs e) {
             // If the DataObject contains string data, extract it
-            if (e.Data.GetDataPresent(DataFormats.StringFormat))
-            {
+            if (e.Data.GetDataPresent(DataFormats.StringFormat)) {
                 TextBlock playlistTextBlock = e.OriginalSource as TextBlock;
-                string songId = (string)e.Data.GetData(DataFormats.StringFormat);
+                string songId = (string) e.Data.GetData(DataFormats.StringFormat);
                 string playlistName = playlistTextBlock.DataContext.ToString();
                 Song s;
 
-                try
-                {
+                try {
                     s = musicLib.GetSong(int.Parse(songId));
                 }
-                catch (Exception)
-                {
+                catch (Exception) {
                     s = null;
                 }
-                if (s != null)
-                {
+                if (s != null) {
                     musicLib.AddSongToPlaylist(s.Id, playlistName);
                 }
             }
-
         }
 
-        private void PlaylistList_DragOver(object sender, DragEventArgs e)
-        {
+        private void PlaylistList_DragOver(object sender, DragEventArgs e) {
             e.Effects = DragDropEffects.None;
 
-            if (e.Data.GetDataPresent(DataFormats.StringFormat))
-            {
-                ListBoxItem targetPlaylist = (ListBoxItem)sender;
+            if (e.Data.GetDataPresent(DataFormats.StringFormat)) {
+                ListBoxItem targetPlaylist = (ListBoxItem) sender;
                 string songId = e.Data.GetData(DataFormats.StringFormat) as string;
                 String playlist = targetPlaylist.Content.ToString();
 
-                if (musicLib.PlaylistExists(playlist) && musicLib.SongIds.Contains(songId))
-                {
+                if (musicLib.PlaylistExists(playlist) && musicLib.SongIds.Contains(songId)) {
                     e.Effects = DragDropEffects.Copy;
                 }
             }
-
         }
     }
 }
