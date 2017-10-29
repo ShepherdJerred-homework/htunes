@@ -14,11 +14,12 @@ namespace htunes {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow {
         private MusicLib musicLib;
         private MusicPlayer musicPlayer;
         private bool IsPlaylistSelected { get; set; }
         private String CurrentPlaylist { get; set; }
+        private Point startPoint;
 
         public MainWindow() {
             InitializeComponent();
@@ -255,11 +256,10 @@ namespace htunes {
 
         private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
             AboutForm aboutForm = new AboutForm();
-            bool? result = aboutForm.ShowDialog();
+            aboutForm.ShowDialog();
         }
 
         private void RenameMenuItem_Click(object sender, RoutedEventArgs e) {
-            ListBoxItem selectedItem = PlaylistList.SelectedItem as ListBoxItem;
             NewPlaylistForm newPlaylistForm = new NewPlaylistForm();
             newPlaylistForm.NewNameTextBox.Text = PlaylistList.SelectedItem.ToString();
             newPlaylistForm.NewNameTextBox.Focus();
@@ -273,12 +273,9 @@ namespace htunes {
 
         private void DeletePlaylistMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxItem selectedItem = PlaylistList.SelectedItem as ListBoxItem;
             musicLib.DeletePlaylist(PlaylistList.SelectedItem.ToString());
             SetupPlaylistList();
         }
-
-        private Point startPoint;
 
         private void SongGrid_MouseMove(object sender, MouseEventArgs e) {
             // Get the current mouse position
@@ -303,11 +300,11 @@ namespace htunes {
         }
 
         private void PlaylistList_Drop(object sender, DragEventArgs e) {
-            // If the DataObject contains string data, extract it
             if (e.Data.GetDataPresent(DataFormats.StringFormat)) {
                 TextBlock playlistTextBlock = e.OriginalSource as TextBlock;
                 string songId = (string) e.Data.GetData(DataFormats.StringFormat);
                 string playlistName = playlistTextBlock.DataContext.ToString();
+                
                 Song s;
 
                 try {
@@ -326,11 +323,9 @@ namespace htunes {
             e.Effects = DragDropEffects.None;
 
             if (e.Data.GetDataPresent(DataFormats.StringFormat)) {
-                ListBoxItem targetPlaylist = (ListBoxItem) sender;
                 string songId = e.Data.GetData(DataFormats.StringFormat) as string;
-                String playlist = targetPlaylist.Content.ToString();
 
-                if (musicLib.PlaylistExists(playlist) && musicLib.SongIds.Contains(songId)) {
+                if (musicLib.SongIds.Contains(songId)) {
                     e.Effects = DragDropEffects.Copy;
                 }
             }
