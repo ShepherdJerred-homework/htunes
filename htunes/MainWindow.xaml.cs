@@ -77,19 +77,21 @@ namespace htunes {
         }
 
         private void PlaylistListItem_Click(object sender, RoutedEventArgs e) {
-            CurrentPlaylist = (string) PlaylistList.SelectedItems[0];
-            IsPlaylistSelected = CurrentPlaylist != "All Music";
+            if (PlaylistList.SelectedItems.Count > 0) {
+                CurrentPlaylist = (string) PlaylistList.SelectedItems[0];
+                IsPlaylistSelected = CurrentPlaylist != "All Music";
 
-            if (IsPlaylistSelected) {
-                StopEditing();
-                DisableEditButton();
-                UpdateSongList(musicLib.SongsForPlaylist(CurrentPlaylist).DefaultView);
-                PositionColumn.Visibility = Visibility.Visible;
-            }
-            else {
-                EnableEditButton();
-                UpdateSongList(musicLib.Songs.DefaultView);
-                PositionColumn.Visibility = Visibility.Hidden;
+                if (IsPlaylistSelected) {
+                    StopEditing();
+                    DisableEditButton();
+                    UpdateSongList(musicLib.SongsForPlaylist(CurrentPlaylist).DefaultView);
+                    PositionColumn.Visibility = Visibility.Visible;
+                }
+                else {
+                    EnableEditButton();
+                    UpdateSongList(musicLib.Songs.DefaultView);
+                    PositionColumn.Visibility = Visibility.Hidden;
+                }
             }
         }
 
@@ -218,8 +220,8 @@ namespace htunes {
             musicLib.Save();
         }
 
-        //https://github.com/fmccown/MiniPlayerWpf/blob/master/MiniPlayerWpf/MainWindow.xaml.cs
-        //Author: fmccown
+        // https://github.com/fmccown/MiniPlayerWpf/blob/master/MiniPlayerWpf/MainWindow.xaml.cs
+        // Author: fmccown
         private void AddSongButton_Click(object sender, RoutedEventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
