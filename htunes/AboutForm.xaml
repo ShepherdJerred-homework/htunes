@@ -5,12 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:htunes"
         mc:Ignorable="d"
-        Title="AboutForm" Height="300" Width="350" FontSize="72">
+        Title="AboutForm" Height="300" Width="350">
+    <Window.Resources>
+        <ControlTemplate x:Key="HUButtonTemplate" TargetType="Button">
+            <Border Name="Border" BorderThickness="3" CornerRadius="10"
+                BorderBrush="Gold" Background="Black">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"                                 
+                              TextBlock.FontWeight="Bold"  
+                              TextBlock.Foreground="White"
+                              Content="{TemplateBinding Content}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid Margin="0,0,-0.4,-1.6">
         <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="Auto" Source="if_apple-music-2_2301791.ico" Margin="47,34,0,0"/>
         <Label Content="hTunes"  HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Playbill" FontSize="72" FontStyle="Italic" Foreground="RoyalBlue" Margin="0,42,46.4,0"/>
         <TextBlock Text=" By Levi Mason and Jerred Shepherd " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="46,161,46.4,89"/>
         <TextBlock HorizontalAlignment="Center" Width="91" Text=" Version 1.0" VerticalAlignment="Center" FontSize="16" Margin="47,188,206.4,62" />
-        <Button Content="OK" HorizontalAlignment="Left" Margin="131,215,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="OkButton_Click"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="131,215,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="OkButton_Click" Template="{StaticResource HUButtonTemplate}"/>
     </Grid>
 </Window>
