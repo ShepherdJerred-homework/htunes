@@ -22,6 +22,9 @@
                 <Trigger Property="IsPressed" Value="True">
                     <Setter TargetName="Border" Property="Background" Value="#0078D7" />
                 </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#0078D7" />
+                </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Button.Opacity" Value="0.25" />
                 </Trigger>
@@ -40,8 +43,14 @@
                 <Trigger Property="IsPressed" Value="True">
                     <Setter TargetName="Border" Property="Background" Value="#0078D7" />
                 </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#0078D7" />
+                </Trigger>
                 <Trigger Property="Button.Content" Value="Pause">
                     <Setter TargetName="Border" Property="Background" Value="Black" />
+                </Trigger>
+                <Trigger Property="Button.Content" Value="Pause">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#FFB900" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -56,7 +65,10 @@
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                    <Setter TargetName="Border" Property="Background" Value="#0078D7" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#0078D7" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>

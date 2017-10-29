@@ -9,7 +9,7 @@
     <Window.Resources>
         <ControlTemplate x:Key="HUButtonTemplate" TargetType="Button">
             <Border Name="Border" BorderThickness="2" CornerRadius="3"
-                BorderBrush="Gold" Background="Black">
+                BorderBrush="#FFB900" Background="#4C4A48">
                 <ContentPresenter HorizontalAlignment="Center"
                               VerticalAlignment="Center"                                 
                               TextBlock.FontWeight="Bold"  
@@ -19,6 +19,9 @@
             <ControlTemplate.Triggers>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#0078D7" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
