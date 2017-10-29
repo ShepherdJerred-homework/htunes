@@ -9,6 +9,7 @@ using hTunes;
 using Microsoft.Win32;
 using System.Windows.Input;
 using System.Linq;
+using System.Windows.Navigation;
 
 namespace htunes {
     /// <summary>
@@ -323,6 +324,12 @@ namespace htunes {
                     e.Effects = DragDropEffects.Copy;
                 }
             }
+        }
+
+        // https://stackoverflow.com/questions/10238694/example-using-hyperlink-in-wpf
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e) {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

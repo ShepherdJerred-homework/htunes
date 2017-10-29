@@ -65,7 +65,8 @@ namespace hTunes {
             row["filename"] = s.Filename;
             row["length"] = s.Length;
             row["genre"] = s.Genre;
-            row["albumImage"] = GetURL(s);
+            row["albumImage"] = s.CoverUrl;
+            row["url"] = s.InfoUrl;
             table.Rows.Add(row);
 
             // Update this song's ID
@@ -125,6 +126,8 @@ namespace hTunes {
                 song.Genre = row["genre"].ToString();
                 song.Length = row["length"].ToString();
                 song.Filename = row["filename"].ToString();
+                song.CoverUrl= row["albumImage"].ToString();
+                song.InfoUrl = row["url"].ToString();
 
                 return song;
             }
