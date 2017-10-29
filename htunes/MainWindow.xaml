@@ -143,7 +143,7 @@
                                             <TextBlock Text="{Binding artist, StringFormat=Artist: {0}}" />
                                             <TextBlock Text="{Binding length, StringFormat=Length: {0}}" />
                                             <TextBlock>
-                                                <Hyperlink NavigateUri="{Binding title, StringFormat=Title: {0}}"
+                                                <Hyperlink NavigateUri="{Binding url}"
                                                            RequestNavigate="Hyperlink_RequestNavigate">
                                                     More info on Last.FM
                                                 </Hyperlink>
